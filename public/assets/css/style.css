@@ -1,0 +1,160 @@
+p {
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 12px;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: 5% !important;
+    flex-shrink: 0;
+    width: 100%;
+    background: #1b527a !important;
+}
+
+.social {
+    display: flex;
+    justify-content: center;
+}
+
+.social a {
+    margin: 20px;
+}
+
+.insertCreateForm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+}
+
+.custom-form {
+    max-width: 400px;
+    width: 100%;
+}
+
+.personalAcc {
+    margin-right: 5%;
+}
+
+.infoPage {
+    margin-left: 7.5%;
+    margin-bottom: 5%;
+}
+
+.info {
+    margin-top: 1.2%;
+}
+
+.info p {
+    font-size: 20px !important;
+}
+
+.path {
+    display: flex;
+}
+
+.path p {
+    font-size: 14px;
+    color: #1272c5;
+}
+
+.path p span, .info p {
+    font-size: 14px;
+    color: #0a2942;
+}
+
+.product-card {
+    width: 80%;
+    margin-left: 10%;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px; /* Расстояние между карточками */
+    height: 500px !important;
+}
+
+.product-card form {
+    margin-top: auto;
+}
+
+.product-image {
+    width: 100%;
+    height: 190px;
+    padding: 10px;
+    border-radius: 16px !important;
+    overflow: hidden;
+}
+
+.product-image img {
+    width: 100%;
+    height: auto;
+}
+
+.product-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.product-details h5 {
+    margin-top: 0;
+}
+
+.product-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-info img {
+    margin-top: -2px;
+    margin-right: 2px;
+}
+
+
+.product-info li {
+    margin-bottom: 8px;
+}
+
+.product-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.description {
+    margin-top: 5%;
+    padding: 10px;
+}
+
+.filter {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    border-radius: 16px;
+    margin-bottom: 5%;
+}
+
+.filter .row {
+    margin-left: 30px;
+    margin-bottom: 15px;
+}
