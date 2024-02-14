@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Product\Service;
+use App\Services\Advertisement\Service;
 
 class BaseController extends Controller {
     public $service;

@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Advertisement extends Model
 {
     use HasFactory;
-    protected $table = 'products';
+    protected $table = 'advertisements';
     protected $guarded = false;
 
     public function scopeFilter(Builder $builder, QueryFilter $filter) {

@@ -90,7 +90,7 @@ footer {
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px; /* Расстояние между карточками */
-    height: 500px !important;
+    height: 550px !important;
 }
 
 .product-card form {

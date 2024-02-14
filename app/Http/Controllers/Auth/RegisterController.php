@@ -8,12 +8,21 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class RegisterController extends Controller {
-    public function create() {
+class RegisterController extends Controller
+{
+    public function create()
+    {
         return view('auth.register');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'name' => ['required', 'string'],
+            'email' => ['required', 'string', 'email', 'unique:users'],
+            'password' => ['required', 'min:4', 'confirmed'],
+        ]);
 
         $user = User::create([
             'name' => $request->name,

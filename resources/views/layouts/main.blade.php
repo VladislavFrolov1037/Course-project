@@ -1,4 +1,4 @@
-    <!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +37,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('aboutUs') }}">О нас</a>
                     </li>
-                    {{--                    @guest--}}
+                    {{--                                        @guest--}}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-bs-toggle="dropdown" aria-expanded="false">
@@ -45,12 +45,12 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href=" {{ route('register') }} ">Регистрация</a></li>
-                            {{--                                <li><a class="dropdown-item" href=" {{ route('authorization') }} ">Авторизация</a></li>--}}
+                            <li><a class="dropdown-item" href=" {{ route('login') }} ">Авторизация</a></li>
                         </ul>
                     </li>
-                    {{--                    @endguest--}}
+                    {{--                                        @endguest--}}
                 </ul>
-                {{--                @auth--}}
+                {{--                                @auth--}}
                 <div class="navbar-nav ml-auto personalAcc">
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
@@ -62,11 +62,12 @@
                                 <li><a class="dropdown-item" href="{{ route('user') }}">Личный кабинет</a></li>
                                 <li><a class="dropdown-item" href="{{ route('products.create') }}">Создать
                                         объявление</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
                             </ul>
                         </li>
                     </ul>
                 </div>
-                {{--                @endauth--}}
+                {{--                                @endauth--}}
             </div>
         </div>
     </nav>

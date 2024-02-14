@@ -49,6 +49,10 @@
                                                                      src="{{{ asset('assets/images/price.svg') }}}"
                                                                      alt=""><strong> Стоимость: </strong> <span>{{ $product->price }}р.</span>
                                     </li>
+                                    <li><img width="14" height="14" style="fill: blue" src="{{{ asset('assets/images/views.svg') }}}"
+                                             alt=""><strong> Просмотрено: </strong>
+                                        <span>{{ $product->views }} </span>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
