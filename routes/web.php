@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\FeedBackController;
+use App\Http\Controllers\MainController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,22 +21,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/products', 'ProductsController@index')->name('product.index');
+Route::get('/products', [AdvertisementController::class, 'index'])->name('product.index');
 
-Route::get('/', 'MainController@index')->name('main');
-Route::get('/feedback', 'FeedBackController@index')->name('feedback');
-Route::get('/aboutUs', 'AboutUsController@index')->name('aboutUs');
+Route::get('/', [MainController::class, 'index'])->name('main');
+Route::get('/feedback', [FeedBackController::class, 'index'])->name('feedback');
+Route::get('/aboutUs', [AboutUsController::class, 'index'])->name('aboutUs');
 
 
+Route::prefix('/products')->group(function () {
 
-Route::post('/products', 'ProductsController@store')->name('product.store');
+    Route::post('/products', [AdvertisementController::class, 'store'])->name('product.store');
 
-Route::get('/products/create', 'ProductsController@create')->middleware('auth')->name('products.create');
+    Route::get('/products/create', [AdvertisementController::class, 'create'])->middleware('auth')->name('products.create');
 
-Route::get('/products/{product}', 'ProductsController@show')->name('product.show');
-Route::get('/products/{product}/edit', 'ProductsController@edit')->name('product.edit');
-Route::patch('/products/{product}', 'ProductsController@update')->name('product.update');
-Route::delete('/products/{product}', 'ProductsController@destroy')->name('product.delete');
+    Route::get('/products/{product}', [AdvertisementController::class, 'show'])->name('product.show');
+    Route::get('/products/{product}/edit', [AdvertisementController::class, 'edit'])->name('product.edit');
+    Route::get('/products/{product}', [AdvertisementController::class, 'update'])->name('product.update');
+    Route::get('/products/{product}', [AdvertisementController::class, 'destroy'])->name('product.delete');
+
+});
 
 // Авторизация && Регистрация && Logout
 Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
@@ -43,4 +50,4 @@ Route::post('/login', [LoginController::class, 'store'])->middleware('guest');
 Route::get('/logout', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
 
 
-Route::get('/user', 'UserAccountController@index')->middleware('auth')->name('user');
+Route::get('/user', [UserAccountController::class, 'index'])->middleware('auth')->name('user');

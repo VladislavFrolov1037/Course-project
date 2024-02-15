@@ -20,12 +20,14 @@ class StoreRequest extends FormRequest {
     public function rules(): array {
         return [
             'address' => 'required|string',
+            'house_number' => 'required|integer',
             'description' => 'required|string',
-            'image' => ['required', 'regex:/^.+\.(jpe?g|png)$/i'],
             'price' => 'required|integer',
             'square' => 'required|integer',
             'floor' => 'required|integer',
             'num_floors' => 'required|integer',
+            'repair_type' => 'required|integer',
+            'image' => ['required', 'regex:/^.+\.(jpe?g|png)$/i'],
             'city' => 'required|string',
             'time_of_agreement' => 'required|string',
             'balcony' => 'required|string',

@@ -6,11 +6,15 @@ use App\Filters\ProductFilter;
 use App\Http\Requests\StoreRequest;
 use App\Http\Requests\UpdateRequest;
 use App\Models\Advertisement;
+use App\Models\TypeObject;
 
 class AdvertisementController extends BaseController
 {
     public function index(ProductFilter $request)
     {
+        $typeObject = TypeObject::find(2);
+
+        dd($typeObject->advertisements);
         $advertisements = Advertisement::Filter($request)->paginate(9);
         return view('product.index', compact('advertisements'));
     }
