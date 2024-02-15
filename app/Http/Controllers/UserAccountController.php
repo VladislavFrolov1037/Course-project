@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserAccountController extends Controller {
     public function index() {
-        return view('user.user');
+        return view('user.index');
     }
 
 }

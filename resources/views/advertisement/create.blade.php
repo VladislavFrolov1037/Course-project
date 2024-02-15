@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="insertCreateForm">
-        <form class="custom-form" action="{{ route('product.store') }}" method="post">
+        <form class="custom-form" action="{{ route('advertisement.store') }}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Улица, дом</label>

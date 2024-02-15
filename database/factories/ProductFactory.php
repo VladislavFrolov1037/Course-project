@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Product;
+use App\Models\Advertisement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Advertisement>
  */
 class ProductFactory extends Factory {
     /**
@@ -15,7 +15,7 @@ class ProductFactory extends Factory {
      * @return array<string, mixed>
      */
 
-    protected $model = Product::class;
+    protected $model = Advertisement::class;
 
     public function definition(): array {
         $randomFloor = random_int(1, 14);

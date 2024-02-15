@@ -8,7 +8,8 @@
         </div>
         <div class="info">
             <h1>Регистрация</h1>
-            <p>Регистрация позволяет выкладывать собственные объявления о аренде ваших квартир, а также оставить отзыв о работе нашей компании</p>
+            <p>Регистрация позволяет выкладывать собственные объявления о аренде ваших квартир, а также оставить отзыв о
+                работе нашей компании</p>
         </div>
     </div>
     <div class="register">
@@ -29,6 +30,14 @@
                 <input type="email" class="form-control" value="{{ old('email') }}" id="exampleInputPassword1"
                        name="email" placeholder="Почта">
                 @error('email')
+                <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group mb-2">
+                <label for="exampleInputPassword1">Телефон</label>
+                <input type="text" class="form-control" value="{{ old('phone') }}" id="exampleInputPassword1"
+                       name="phone" placeholder="Телефон">
+                @error('phone')
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>

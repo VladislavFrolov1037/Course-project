@@ -2,8 +2,7 @@
 
 namespace App\Services\Advertisement;
 
-use App\Models\Product;
-use Illuminate\Support\Facades\Cookie;
+use App\Models\Advertisement;
 
 class Service
 {
@@ -11,7 +10,7 @@ class Service
     {
         $data['balcony'] = ($data['balcony'] === 'true');
 
-        Product::create($data);
+        Advertisement::create($data);
     }
 
     public function update($advertisement, $data)
@@ -25,10 +24,10 @@ class Service
     {
         $id = $advertisement->id;
 
-        if (!session()->has('viewed_product_' . $id)) {
+        if (!session()->has('viewed_advertisement_' . $id)) {
             $advertisement->views += 1;
             $advertisement->save();
-            session(['viewed_product_' . $id => true]);
+            session(['viewed_advertisement_' . $id => true]);
         }
     }
 

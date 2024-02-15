@@ -12,16 +12,16 @@ class AdvertisementController extends BaseController
 {
     public function index(ProductFilter $request)
     {
-        $typeObject = TypeObject::find(2);
+//        $typeObject = TypeObject::find(2);
+//        dd($typeObject->advertisements);
 
-        dd($typeObject->advertisements);
         $advertisements = Advertisement::Filter($request)->paginate(9);
-        return view('product.index', compact('advertisements'));
+        return view('advertisement.index', compact('advertisements'));
     }
 
     public function create()
     {
-        return view('product.create');
+        return view('advertisement.create');
     }
 
     public function store(StoreRequest $request)
@@ -30,19 +30,18 @@ class AdvertisementController extends BaseController
 
         $this->service->store($data);
 
-        return redirect()->route('product.index');
+        return redirect()->route('advertisement.index');
     }
 
     public function show(Advertisement $advertisement)
     {
-        $this->service->updateViews($advertisement);
-
-        return view('product.show', compact('advertisement'));
+//        $this->service->updateViews($advertisement);
+        return view('advertisement.show', compact('advertisement'));
     }
 
     public function edit(Advertisement $advertisement)
     {
-        return view('product.edit', compact('advertisement'));
+        return view('advertisement.edit', compact('advertisement'));
     }
 
     public function update(Advertisement $advertisement, UpdateRequest $request)
@@ -51,12 +50,12 @@ class AdvertisementController extends BaseController
 
         $this->service->update($advertisement, $data);
 
-        return redirect()->route('product.show', $advertisement->id);
+        return redirect()->route('advertisement.show', $advertisement->id);
     }
 
     public function destroy(Advertisement $advertisement)
     {
         $advertisement->delete();
-        return redirect()->route('product.index');
+        return redirect()->route('advertisement.index');
     }
 }

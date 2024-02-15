@@ -21,23 +21,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/products', [AdvertisementController::class, 'index'])->name('product.index');
 
 Route::get('/', [MainController::class, 'index'])->name('main');
 Route::get('/feedback', [FeedBackController::class, 'index'])->name('feedback');
 Route::get('/aboutUs', [AboutUsController::class, 'index'])->name('aboutUs');
 
 
-Route::prefix('/products')->group(function () {
+Route::prefix('/advertisements')->group(function () {
+    Route::get('/create', [AdvertisementController::class, 'create'])->middleware('auth')->name('advertisement.create');
 
-    Route::post('/products', [AdvertisementController::class, 'store'])->name('product.store');
+    Route::get('/{advertisement}', [AdvertisementController::class, 'show'])->name('advertisement.show');
 
-    Route::get('/products/create', [AdvertisementController::class, 'create'])->middleware('auth')->name('products.create');
+    Route::get('/', [AdvertisementController::class, 'index'])->name('advertisement.index');
 
-    Route::get('/products/{product}', [AdvertisementController::class, 'show'])->name('product.show');
-    Route::get('/products/{product}/edit', [AdvertisementController::class, 'edit'])->name('product.edit');
-    Route::get('/products/{product}', [AdvertisementController::class, 'update'])->name('product.update');
-    Route::get('/products/{product}', [AdvertisementController::class, 'destroy'])->name('product.delete');
+    Route::post('/', [AdvertisementController::class, 'store'])->name('advertisement.store');
+
+
+    Route::get('/{advertisement}/edit', [AdvertisementController::class, 'edit'])->name('advertisement.edit');
+    Route::patch('/{advertisement}', [AdvertisementController::class, 'update'])->name('advertisement.update');
+    Route::delete('/{advertisement}', [AdvertisementController::class, 'destroy'])->name('advertisement.delete');
 
 });
 

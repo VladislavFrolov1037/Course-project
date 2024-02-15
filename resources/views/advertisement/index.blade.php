@@ -136,9 +136,9 @@
     <div class="container">
         <div class="row justify-content-center">
             @foreach($advertisements as $advertisement)
-                @if($product->is_published === 0)
+{{--                @if($advertisement->is_published === 0)--}}
                     <div class="col-md-4">
-                        <a href="{{ route('product.show', $advertisement->id) }}" class="product-link">
+                        <a href="{{ route('advertisement.show', $advertisement->id) }}" class="product-link">
                             <div class="card product-card">
                                 <img
                                     src="https://jumanji.livspace-cdn.com/magazine/wp-content/uploads/sites/4/2022/02/01073127/Cover-1.png"
@@ -164,9 +164,9 @@
                                             <span>{{ $advertisement->views }} </span>
                                         </li>
                                     </ul>
-                                    <form action="{{ route('product.delete', $advertisement->id) }}" method="post">
+                                    <form action="{{ route('advertisement.delete', $advertisement->id) }}" method="post">
                                         @csrf
-                                        <a href="{{ route('product.edit', $advertisement->id) }}">Редактировать</a>
+                                        <a href="{{ route('advertisement.edit', $advertisement->id) }}">Редактировать</a>
                                         @method('delete')
                                         <input type="submit" value="Удалить" class="btn btn-danger"
                                                style="margin-left: 100px;">
@@ -175,7 +175,7 @@
                             </div>
                         </a>
                     </div>
-                @endif
+{{--                @endif--}}
             @endforeach
 
             <div>

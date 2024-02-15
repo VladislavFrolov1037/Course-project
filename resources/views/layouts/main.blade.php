@@ -30,7 +30,7 @@
                             Каталог
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
-                            <li><a class="dropdown-item" href="{{ route('product.index') }}">Объявления</a></li>
+                            <li><a class="dropdown-item" href="{{ route('advertisement.index') }}">Объявления</a></li>
                             <li><a class="dropdown-item" href="{{ route('feedback') }}">Отзывы</a></li>
                         </ul>
                     </li>
@@ -60,7 +60,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="profileDropdown">
                                 <li><a class="dropdown-item" href="{{ route('user') }}">Личный кабинет</a></li>
-                                <li><a class="dropdown-item" href="{{ route('products.create') }}">Создать
+                                <li><a class="dropdown-item" href="{{ route('advertisement.create') }}">Создать
                                         объявление</a></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
                             </ul>
