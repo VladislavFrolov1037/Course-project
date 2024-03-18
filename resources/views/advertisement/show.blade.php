@@ -4,11 +4,11 @@
     <div class="infoPage">
         <div class="path">
             <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - Каталог - <a
-                    href="{{ route('advertisement.index') }}">Объявления - </a> <span>{{ $advertisement->num_rooms }}-комнатная квартира на {{ $advertisement->address }}</span>
+                    href="{{ route('advertisement.index') }}">Объявления - </a> <span>г.{{ $advertisement->address->district->city->name }}, улица {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}</span></span>
             </p>
         </div>
         <div class="info">
-            <h1><span>{{ $advertisement->num_rooms }}-комнатная квартира на {{ $advertisement->address }}</span></h1>
+            <h1><span>г.{{ $advertisement->address->district->city->name }}, улица {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}</span></h1>
         </div>
     </div>
     <div class="container mt-4">
@@ -22,7 +22,8 @@
                         </div>
                         <div class="col-md-6">
                             <div class="card-body">
-                                <h3 class="card-title">{{ $advertisement->address }}</h3>
+                                <h3 class="card-title">г. {{ $advertisement->address->district->city->name }}, <br>
+                                    {{ $advertisement->address->district->name }} район</h3>
                                 <ul class="product-info">
                                     <li class="list-group-item"><img width="12" height="12"
                                                                      src="{{{ asset('assets/images/square.svg') }}}"
@@ -49,7 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="info-object">
                             <div class="description">
                                 <h3>Описание</h3>
@@ -63,8 +64,8 @@
                                 <div class="description">
                                     <h3>Параметры</h3>
                                     <ul class="product-info">
-                                        <li class="list-group-item"><strong> Адрес: </strong>
-                                            <span>{{ $advertisement->address }}</span>
+                                        <li class="list-group-item"><strong> Тип объекта: </strong>
+                                            <span>{{ $advertisement->type_object }}</span>
                                         </li>
                                         <li class="list-group-item"><strong> Площадь: </strong>
                                             <span>{{ $advertisement->square }}</span>
@@ -74,10 +75,14 @@
                                         <li class="list-group-item"><strong> Этаж: </strong>
                                             <span>{{ $advertisement->floor }}/{{ $advertisement->num_floors }}</span>
                                         </li>
+                                        <li class="list-group-item"><strong> Тип ремонта: </strong>
+                                            <span>{{ $advertisement->repair_type->name }}</span>
+                                        </li>
                                         <li class="list-group-item"><strong> Срок аренды: </strong>
-                                            <span>{{ $advertisement->time_of_agreement }}</span>
+                                            <span>{{ $advertisement->rental_time }}</span>
                                         <li class="list-group-item"><strong> Балкон: </strong>
                                             <span>{{ $advertisement->balcony == '1' ? 'Есть' : 'Нет' }}</span>
+                                        </li>
                                         <li class="list-group-item"><strong> Стоимость: </strong>
                                             <span>{{ $advertisement->price }}р.</span>
                                         </li>
@@ -93,8 +98,14 @@
                                         <li class="list-group-item"><strong> Область: </strong>
                                             <span>Челябинская область</span>
                                         </li>
-                                        <li class="list-group-item"><strong> Адрес: </strong>
-                                            <span>{{ $advertisement->address }}</span>
+                                        <li class="list-group-item"><strong> Город: </strong>
+                                            <span>{{ $advertisement->address->district->city->name }}</span>
+                                        </li>
+                                        <li class="list-group-item"><strong> Район: </strong>
+                                            <span>{{ $advertisement->address->district->name }}</span>
+                                        </li>
+                                        <li class="list-group-item"><strong> Улица: </strong>
+                                            <span>{{ $advertisement->address->address }} {{ $advertisement->address->house_number }}</span>
                                         </li>
                                     </ul>
                                 </div>

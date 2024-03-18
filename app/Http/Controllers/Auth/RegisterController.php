@@ -21,7 +21,8 @@ class RegisterController extends Controller
         $request->validate([
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'unique:users'],
-            'phone' => ['required', 'string', 'unique:users', 'regex:/^\+?[0-9]{1,3}\s?\(?[0-9]{3}\)?[-\s]?[0-9]{3}[-\s]?[0-9]{2}[-\s]?[0-9]{2}$/'],
+            'phone' => ['required', 'string', 'unique:users', 'regex:/^(\+7|8)\d{10}$/'],
+            'image' => ['required', 'extensions:jpg,png,jpeg'],
             'password' => ['required', 'min:4', 'confirmed'],
         ]);
 
@@ -29,8 +30,9 @@ class RegisterController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'image' => $request->file('image')->store('uploads', 'public'),
             'password' => $request->password,
-            'role_id' => 2,
+            'role' => 'user',
         ]);
 
         Auth::login($user);

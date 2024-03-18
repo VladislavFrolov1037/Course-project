@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('type_objects', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50)->unique();
+            $table->string('address', 70);
+            $table->integer('house_number');
+            $table->foreignId('district_id')->constrained();
         });
     }
 
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('type_objects');
+        Schema::dropIfExists('addresses');
     }
 };

@@ -31,43 +31,50 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
                             <li><a class="dropdown-item" href="{{ route('advertisement.index') }}">Объявления</a></li>
-                            <li><a class="dropdown-item" href="{{ route('feedback') }}">Отзывы</a></li>
+                            <li><a class="dropdown-item" href="{{ route('review.index') }}">Отзывы</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('aboutUs') }}">О нас</a>
                     </li>
-                    {{--                                        @guest--}}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Пользователь
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="userDropdown">
-                            <li><a class="dropdown-item" href=" {{ route('register') }} ">Регистрация</a></li>
-                            <li><a class="dropdown-item" href=" {{ route('login') }} ">Авторизация</a></li>
-                        </ul>
-                    </li>
-                    {{--                                        @endguest--}}
-                </ul>
-                {{--                                @auth--}}
-                <div class="navbar-nav ml-auto personalAcc">
-                    <ul class="navbar-nav">
+                    @guest
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Профиль
+                                Пользователь
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                                <li><a class="dropdown-item" href="{{ route('user') }}">Личный кабинет</a></li>
-                                <li><a class="dropdown-item" href="{{ route('advertisement.create') }}">Создать
-                                        объявление</a></li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
+                            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href=" {{ route('register') }} ">Регистрация</a></li>
+                                <li><a class="dropdown-item" href=" {{ route('login') }} ">Авторизация</a></li>
                             </ul>
                         </li>
-                    </ul>
-                </div>
-                {{--                                @endauth--}}
+                    @endguest
+                </ul>
+                @auth
+                    <div class="navbar-nav ml-auto personalAcc">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('favourite') }}">Избранное</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Профиль
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="profileDropdown">
+                                    @can('view', auth()->user())
+                                        <li><a class="dropdown-item" href="{{ route('admin.index') }}">Админ панель</a>
+                                        </li>
+                                    @endcan
+                                    <li><a class="dropdown-item" href="{{ route('user') }}">Личный кабинет</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('advertisement.create') }}">Создать
+                                            объявление</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                @endauth
             </div>
         </div>
     </nav>

@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="register">
-        <form class="custom-form" action="{{ route('register') }}" method="post" novalidate>
+        <form class="custom-form" action="{{ route('register') }}" method="post" enctype="multipart/form-data" novalidate>
             @csrf
             <h3>Регистрация</h3>
             <div class="form-group mb-2">
@@ -38,6 +38,14 @@
                 <input type="text" class="form-control" value="{{ old('phone') }}" id="exampleInputPassword1"
                        name="phone" placeholder="Телефон">
                 @error('phone')
+                <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="form-group mb-2">
+                <label for="exampleInputPassword1">Аватарка</label>
+                <input type="file" class="form-control" value="{{ old('image') }}" id="exampleInputPassword1"
+                       name="image" placeholder="Аватарка">
+                @error('image')
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>

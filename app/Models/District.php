@@ -9,9 +9,13 @@ class District extends Model
 {
     use HasFactory;
 
-    public function advertisements()
+    public function addresses()
     {
-        return $this->hasMany(Advertisement::class, 'district_id', 'id');
+        return $this->hasMany(Address::class, 'district_id', 'id');
     }
 
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

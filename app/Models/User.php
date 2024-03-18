@@ -17,12 +17,15 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    public $timestamps = false;
     protected $fillable = [
         'name',
         'email',
         'phone',
+        'image',
         'password',
-        'role_id',
+        'role',
     ];
 
     /**
@@ -44,4 +47,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class, 'user_id', 'id');
+    }
+
+    public function advertisements()
+    {
+        return $this->hasMany(Advertisement::class, 'user_id', 'id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'user_id', 'id');
+    }
 }

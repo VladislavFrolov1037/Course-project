@@ -14,10 +14,10 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 50);
             $table->string('email')->unique();
-            $table->string('phone', 11)->unique();
+            $table->string('phone', 12)->unique();
+            $table->string('image');
             $table->string('password');
-            $table->foreignId('role_id')->constrained();
-            $table->timestamps();
+            $table->string('role');
         });
     }
 

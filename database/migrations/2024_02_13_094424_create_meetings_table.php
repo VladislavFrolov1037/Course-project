@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('phone', 11);
             $table->date('date');
             $table->time('time');
-            $table->foreignId('advertisement_id')->constrained();
+            $table->foreignId('advertisement_id')->constrained()->cascadeOnDelete();
             $table->foreignId('status_id')->constrained();
         });
     }

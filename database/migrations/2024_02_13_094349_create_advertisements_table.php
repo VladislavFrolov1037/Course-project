@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,22 +12,20 @@ return new class extends Migration
     {
         Schema::create('advertisements', function (Blueprint $table) {
             $table->id();
-            $table->string('address', 100);
-            $table->integer('house_number');
-            $table->text('description');
-            $table->integer('price');
-            $table->integer('square');
-            $table->integer('floor');
-            $table->integer('num_floors');
-            $table->string('balcony');
-            $table->foreignId('rental_time_id')->constrained();
-            $table->integer('num_rooms');
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('address_id')->constrained();
             $table->foreignId('repair_type_id')->constrained();
-            $table->foreignId('status_id')->constrained();
+            $table->integer('num_rooms');
+            $table->integer('num_floors');
+            $table->integer('floor');
+            $table->integer('square');
+            $table->integer('price');
+            $table->string('type_object');
+            $table->string('balcony');
+            $table->string('rental_time');
+            $table->text('description');
             $table->unsignedBigInteger('views')->default(0);
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('district_id')->constrained();
-            $table->foreignId('type_object_id')->constrained();
+            $table->foreignId('status_id')->default(1)->constrained();
             $table->timestamps();
         });
     }

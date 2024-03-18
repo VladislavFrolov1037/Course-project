@@ -14,14 +14,20 @@
 
     <div class="container">
         <div class="filter">
-            <form action="{{ asset('products') }}" class="filterForm" method="get">
+            <form action="{{ asset('advertisements') }}" class="filterForm" method="get">
                 @csrf
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="city">Город</label>
-                        <select class="form-select" name="city" id="city">
-                            <option value="Магнитогорск">Магнитогорск</option>
-                            <option value="Челябинск">Челябинск</option>
+                        <label for="type_object">Тип объекта</label>
+                        <select class="form-select" name="type_object" id="type_object">
+                            <option
+                                {{ isset($_GET['type_object']) && $_GET['type_object'] == 'Квартира' ? 'selected' : '' }}
+                                value="Квартира">Квартира
+                            </option>
+                            <option
+                                {{ isset($_GET['type_object']) && $_GET['type_object'] == 'Дом' ? 'selected' : '' }}
+                                value="Дом">Дом
+                            </option>
                         </select>
                     </div>
                     <div class="col-md-1">
@@ -66,10 +72,19 @@
                 </div>
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="objType">Тип объекта</label>
-                        <select class="form-select" name="objType" id="objType">
-                            <option value="Магнитогорск">Квартира</option>
-                            <option value="Челябинск">Дом</option>
+                        <label for="city_id">Город</label>
+                        <select class="form-select" name="address_id[]" id="city_id">
+                            @foreach($cities as $city)
+                                <option
+                                    value="{{ $city->id }}" @if(isset($_GET['address_id']))
+                                    {{ $_GET['address_id'][0] == $city->id ? 'selected' : '' }}
+                                    @endif >{{ $city->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="district_id">Район</label>
+                        <select class="form-select" name="address_id[]" id="district_id">
                         </select>
                     </div>
                     <div class="col-md-2">
@@ -89,19 +104,27 @@
 
                 <div class="row">
                     <div class="col-md-2">
-                        <label for="time_of_agreement">Время договора</label>
-                        <select class="form-select" name="time_of_agreement" id="time_of_agreement">
+                        <label for="repair_type_id">Тип ремонта</label>
+                        <select class="form-select" name="repair_type_id" id="repair_type_id">
+                            <option value="5">Любой</option>
+                            @foreach($repairTypes as $repairType)
+                                <option
+                                    value="{{ $repairType->id }}" {{ request()->input('repair_type_id') == $repairType->id ? 'selected' : '' }}>{{ $repairType->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label for="rental_time">Время договора</label>
+                        <select class="form-select" name="rental_time" id="rental_time">
                             <option
-                                @if(isset($_GET['time_of_agreement'])) @if($_GET['time_of_agreement'] == 'Любой') selected
-                                @endif @endif value="Любой">Любой
+                                {{ isset($_GET['rental_time']) && $_GET['rental_time'] == 'Долгосрочно' ? 'selected' : '' }}
+                                value="Долгосрочно">
+                                Долгосрочно
                             </option>
                             <option
-                                @if(isset($_GET['time_of_agreement'])) @if($_GET['time_of_agreement'] == 'Долгосрочный') selected
-                                @endif @endif value="Долгосрочный">Долгосрочный
-                            </option>
-                            <option
-                                @if(isset($_GET['time_of_agreement'])) @if($_GET['time_of_agreement'] == 'Краткосрочный') selected
-                                @endif @endif value="Краткосрочный">Краткосрочный
+                                {{ isset($_GET['rental_time']) && $_GET['rental_time'] == 'Посуточно' ? 'selected' : '' }}
+                                value="Посуточно">
+                                Посуточно
                             </option>
                         </select>
                     </div>
@@ -136,46 +159,56 @@
     <div class="container">
         <div class="row justify-content-center">
             @foreach($advertisements as $advertisement)
-{{--                @if($advertisement->is_published === 0)--}}
-                    <div class="col-md-4">
-                        <a href="{{ route('advertisement.show', $advertisement->id) }}" class="product-link">
-                            <div class="card product-card">
-                                <img
-                                    src="https://jumanji.livspace-cdn.com/magazine/wp-content/uploads/sites/4/2022/02/01073127/Cover-1.png"
-                                    class="card-img-top product-image" alt="Product Image">
-                                <div class="card-body product-details">
-                                    <h4 class="card-title">г.{{ $advertisement->city }},<br> ул. {{ $advertisement->address }}</h4>
-                                    <ul class="product-info">
-                                        <li><img width="12" height="12" src="{{{ asset('assets/images/square.svg') }}}"
-                                                 alt=""><strong> Площадь: </strong> <span>{{ $advertisement->square }}</span>
-                                        </li>
-                                        <li><img width="12" height="12" src="{{{ asset('assets/images/square.svg') }}}"
-                                                 alt=""><strong> Количество комнат: </strong>
-                                            <span>{{ $advertisement->num_rooms }}</span></li>
-                                        <li><img width="12" height="12" src="{{{ asset('assets/images/floor.svg') }}}"
-                                                 alt=""><strong> Этаж: </strong>
-                                            <span>{{ $advertisement->floor }}/{{ $advertisement->num_floors }}</span></li>
-                                        <li><img width="12" height="12" src="{{{ asset('assets/images/price.svg') }}}"
-                                                 alt=""><strong> Стоимость: </strong>
-                                            <span>{{ $advertisement->price }}р.</span>
-                                        </li>
-                                        <li><img width="14" height="14" style="fill: blue" src="{{{ asset('assets/images/views.svg') }}}"
-                                                 alt=""><strong> Просмотрено: </strong>
-                                            <span>{{ $advertisement->views }} </span>
-                                        </li>
-                                    </ul>
-                                    <form action="{{ route('advertisement.delete', $advertisement->id) }}" method="post">
+                {{--                @if($advertisement->is_published === 0)--}}
+                <div class="col-md-4">
+                    <a href="{{ route('advertisement.show', $advertisement->id) }}" class="product-link">
+                        <div class="card product-card">
+                            <img
+                                src="https://jumanji.livspace-cdn.com/magazine/wp-content/uploads/sites/4/2022/02/01073127/Cover-1.png"
+                                class="card-img-top product-image" alt="Product Image">
+                            <div class="card-body product-details">
+                                <h4 class="card-title">г.{{ $advertisement->address->district->city->name }},<br>
+                                    ул. {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}
+                                </h4>
+                                <ul class="product-info">
+                                    <li><img width="12" height="12" src="{{{ asset('assets/images/square.svg') }}}"
+                                             alt=""><strong> Площадь: </strong>
+                                        <span>{{ $advertisement->square }}</span>
+                                    </li>
+                                    <li><img width="12" height="12" src="{{{ asset('assets/images/square.svg') }}}"
+                                             alt=""><strong> Количество комнат: </strong>
+                                        <span>{{ $advertisement->num_rooms }}</span></li>
+                                    <li><img width="12" height="12" src="{{{ asset('assets/images/floor.svg') }}}"
+                                             alt=""><strong> Этаж: </strong>
+                                        <span>{{ $advertisement->floor }}/{{ $advertisement->num_floors }}</span></li>
+                                    <li><img width="12" height="12" src="{{{ asset('assets/images/price.svg') }}}"
+                                             alt=""><strong> Стоимость: </strong>
+                                        <span>{{ $advertisement->price }}р.</span>
+                                    </li>
+                                    <li><img width="14" height="14" style="fill: blue"
+                                             src="{{{ asset('assets/images/views.svg') }}}"
+                                             alt=""><strong> Просмотрено: </strong>
+                                        <span>{{ $advertisement->views }} </span>
+                                    </li>
+                                </ul>
+                                <form action="{{ route('advertisement.delete', $advertisement->id) }}" method="post">
+                                    @csrf
+                                    <a href="{{ route('advertisement.edit', $advertisement->id) }}">Редактировать</a>
+                                    @method('delete')
+                                    <input type="submit" value="Удалить" class="btn btn-danger"
+                                           style="margin-left: 100px;">
+                                </form>
+                                @auth
+                                    <form action="{{ route('favourite.store', $advertisement->id) }}" method="post">
                                         @csrf
-                                        <a href="{{ route('advertisement.edit', $advertisement->id) }}">Редактировать</a>
-                                        @method('delete')
-                                        <input type="submit" value="Удалить" class="btn btn-danger"
-                                               style="margin-left: 100px;">
+                                        <button type="submit" class="btn btn-primary">Добавить в избранное</button>
                                     </form>
-                                </div>
+                                @endauth
                             </div>
-                        </a>
-                    </div>
-{{--                @endif--}}
+                        </div>
+                    </a>
+                </div>
+                {{--                @endif--}}
             @endforeach
 
             <div>
@@ -185,4 +218,42 @@
     </div>
 
     <script src="{{ asset('assets/js/clearFilter.js') }}"></script>
+    <script>
+        let citySelect = document.getElementById("city_id");
+        let districtSelect = document.getElementById("district_id");
+        let districtsByCity = {!! json_encode($districts) !!};
+
+        function updateDistricts(cityId, selectedDistrictId) {
+            districtSelect.innerHTML = "";
+
+            let option = document.createElement("option");
+            option.value = '';
+            option.textContent = 'Любой';
+            districtSelect.appendChild(option);
+
+            if (cityId !== "") {
+                districtsByCity.forEach(function (district) {
+                    if (district.city_id == cityId) {
+                        let option = document.createElement("option");
+                        option.value = district.id;
+                        option.textContent = district.name;
+                        districtSelect.appendChild(option);
+                    }
+                });
+            }
+
+
+            if (selectedDistrictId) {
+                districtSelect.value = selectedDistrictId;
+            }
+        }
+
+        updateDistricts(citySelect.value, {{ $_GET['address_id'][1] ?? '' }});
+
+        citySelect.addEventListener("change", function () {
+            let cityId = Number(this.value);
+            updateDistricts(cityId, '');
+        });
+    </script>
+
 @endsection

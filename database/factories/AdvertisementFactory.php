@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Advertisement>
  */
-class ProductFactory extends Factory {
+class AdvertisementFactory extends Factory
+{
     /**
      * Define the model's default state.
      *
@@ -17,23 +18,26 @@ class ProductFactory extends Factory {
 
     protected $model = Advertisement::class;
 
-    public function definition(): array {
+    public function definition(): array
+    {
         $randomFloor = random_int(1, 14);
         $num_floors = random_int($randomFloor, 14);
         return [
             'address' => $this->faker->address(),
-            'description' => $this->faker->text(),
-            'image' => $this->faker->imageUrl(),
-            'price' => random_int(5000, 25000),
+            'house_number' => random_int(1, 255),
+            'description' => $this->faker->text(50),
+            'price' => random_int(5000, 35000),
             'square' => random_int(25, 150),
             'floor' => $randomFloor,
             'num_floors' => $num_floors,
-            'city' => $this->faker->city,
-            'time_of_agreement' => 'Долгосрочный',
             'balcony' => $this->faker->boolean,
+            'rental_time_id' => random_int(1, 2),
             'num_rooms' => random_int(1, 6),
-            'phone' => $this->faker->phoneNumber,
-
+            'repair_type_id' => random_int(1, 4),
+            'status_id' => 1,
+            'user_id' => random_int(1, 50),
+            'district_id' => random_int(1, 3),
+            'type_object_id' => random_int(1, 2),
         ];
     }
 }

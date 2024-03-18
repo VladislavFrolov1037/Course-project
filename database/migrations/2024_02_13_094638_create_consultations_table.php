@@ -17,9 +17,7 @@ return new  class extends Migration
             $table->string('email', 100);
             $table->string('phone', 11);
             $table->date('date');
-            $table->time('time');
             $table->foreignId('status_id')->constrained();
-            $table->timestamps();
         });
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Advertisement;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,17 +23,19 @@ class UpdateRequest extends FormRequest
     {
         return [
             'address' => 'required|string',
+            'house_number' => 'required|integer',
             'description' => 'required|string',
-            'image' => ['required', 'regex:/^.+\.(jpe?g|png)$/i'],
+//            'image' => ['required', 'regex:/^.+\.(jpe?g|png)$/i'],
             'price' => 'required|integer',
             'square' => 'required|integer',
             'floor' => 'required|integer',
             'num_floors' => 'required|integer',
-            'city' => 'required|string',
-            'time_of_agreement' => 'required|string',
             'balcony' => 'required|string',
+            'rental_time_id' => 'required|integer',
             'num_rooms' => 'required|integer',
-            'phone' => ['required', 'regex:/^(\+7|8)[\s\-]?\(?\d{3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/'],
+            'repair_type_id' => 'required|integer',
+            'district_id' => 'required|integer',
+            'type_object_id' => 'required|integer',
         ];
     }
 }
