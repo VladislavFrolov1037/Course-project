@@ -14,8 +14,9 @@ return new class extends Migration {
             $table->id();
             $table->text('comment');
             $table->integer('rating');
-            $table->date('date');
+            $table->date('date')->default(now());
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('status_id')->constrained()->cascadeOnDelete();
         });
     }
 

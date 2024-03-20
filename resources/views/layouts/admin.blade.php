@@ -132,10 +132,10 @@
                     <!-- Nav -->
                     <ul class="nav nav-tabs mt-4 overflow-x border-0">
                         <li class="nav-item">
-                            <a href="{{ route('admin.advertisement') }}" class="nav-link{{ request()->routeIs('admin.advertisement') ? ' active' : '' }}">Все объявления</a>
+                            <a href="#" class="nav-link active">Все объявления</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('admin.advertisement.expected') }}" class="nav-link{{ request()->routeIs('admin.advertisement.expected') ? ' active' : '' }}">Ожидаемые объявления</a>
+                            <a href="{{ route('admin.advertisement.expected') }}" class="nav-link font-regular">Ожидаемые объявления</a>
                         </li>
                     </ul>
                 </div>

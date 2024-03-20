@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="insertCreateForm">
-        <form class="custom-form" action="{{ route('advertisement.store') }}" method="post">
+        <form class="custom-form" action="{{ route('advertisement.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Город</label>
@@ -147,7 +147,7 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Фотография</label>
-                <input type="text" class="form-control" value="{{ old('image') }}" name="image"
+                <input type="file" multiple class="form-control" value="{{ old('image') }}" name="images[]"
                        id="exampleInputPassword1"
                        placeholder="Формат jpg или png">
                 @error('image')

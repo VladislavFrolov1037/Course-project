@@ -31,8 +31,8 @@ class LoginController extends Controller
                 ]);
         }
 
-        if (Auth::user()->role_id === 1) {
-            return redirect()->route('admin.advertisements');
+        if (Auth::user()->role === 'admin') {
+            return redirect()->route('admin.index');
         }
 
         return redirect()->route('user');

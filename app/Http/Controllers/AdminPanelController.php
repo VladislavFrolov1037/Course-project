@@ -16,7 +16,8 @@ class AdminPanelController extends Controller
 {
     public function index()
     {
-        return view('admin.index');
+        $admin = auth()->user();
+        return view('admin.index', compact('admin'));
     }
 
     public function showAll(AdminAdvertisementFilter $request)

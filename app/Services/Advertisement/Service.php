@@ -12,7 +12,8 @@ class Service
     {
         $data['balcony'] = ($data['balcony'] === 'true');
         $data['user_id'] = auth()->user()->id;
-        Advertisement::create($data);
+        $advertisement = Advertisement::create($data);
+        return $advertisement;
     }
 
     public function update($advertisement, $data)

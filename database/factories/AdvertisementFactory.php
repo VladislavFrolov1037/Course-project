@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Address;
 use App\Models\Advertisement;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -23,21 +25,19 @@ class AdvertisementFactory extends Factory
         $randomFloor = random_int(1, 14);
         $num_floors = random_int($randomFloor, 14);
         return [
-            'address' => $this->faker->address(),
-            'house_number' => random_int(1, 255),
-            'description' => $this->faker->text(50),
-            'price' => random_int(5000, 35000),
-            'square' => random_int(25, 150),
-            'floor' => $randomFloor,
-            'num_floors' => $num_floors,
-            'balcony' => $this->faker->boolean,
-            'rental_time_id' => random_int(1, 2),
-            'num_rooms' => random_int(1, 6),
+            'user_id' => User::factory()->create()->id,
+            'address_id' => Address::factory()->create()->id,
             'repair_type_id' => random_int(1, 4),
-            'status_id' => 1,
-            'user_id' => random_int(1, 50),
-            'district_id' => random_int(1, 3),
-            'type_object_id' => random_int(1, 2),
+            'num_rooms' => random_int(1, 6),
+            'num_floors' => $num_floors,
+            'floor' => $randomFloor,
+            'square' => random_int(25, 150),
+            'price' => random_int(5000, 35000),
+            'type_object' => fake()->randomElement(['Дом', 'Квартира']),
+            'balcony' => fake()->boolean,
+            'rental_time' => fake()->randomElement(['Посуточно', 'Долгосрочно']),
+            'description' => fake()->text(50),
+            'status_id' => random_int(1,3)
         ];
     }
 }

@@ -18,6 +18,7 @@ class RegisterController extends Controller
     public function store(Request $request)
     {
 
+        // Вынести
         $request->validate([
             'name' => ['required', 'string'],
             'email' => ['required', 'string', 'email', 'unique:users'],
@@ -26,6 +27,7 @@ class RegisterController extends Controller
             'password' => ['required', 'min:4', 'confirmed'],
         ]);
 
+        // Придумать что можно сделать... (Мб массивом, )
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,

@@ -9,6 +9,7 @@ use App\Models\Address;
 use App\Models\Advertisement;
 use App\Models\City;
 use App\Models\District;
+use App\Models\Image;
 use App\Models\RentalTime;
 use App\Models\RepairType;
 use App\Models\TypeObject;
@@ -22,7 +23,7 @@ class AdvertisementController extends BaseController
         $cities = City::all();
         $districts = District::all();
 
-        $advertisements = Advertisement::Filter($request)->paginate(9);
+        $advertisements = Advertisement::Filter($request)->where('status_id', 2)->paginate(9);
         return view('advertisement.index', compact('advertisements', 'districts', 'repairTypes', 'cities'));
     }
 
@@ -48,7 +49,17 @@ class AdvertisementController extends BaseController
 
         $data['address_id'] = $address->id;
 
-        $this->service->store($data);
+        $advertisement = $this->service->store($data);
+
+
+        $images = $request->file('images');
+
+        foreach ($images as $img) {
+            Image::create([
+                'url' => $img->store('uploads', 'public'),
+                'advertisement_id' => $advertisement->id,
+            ]);
+        }
 
         return redirect()->route('advertisement.index');
     }
