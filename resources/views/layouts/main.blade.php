@@ -66,7 +66,7 @@
                                         <li><a class="dropdown-item" href="{{ route('admin.index') }}">Админ панель</a>
                                         </li>
                                     @endcan
-                                    <li><a class="dropdown-item" href="{{ route('user') }}">Личный кабинет</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('user.index') }}">Личный кабинет</a></li>
                                     <li><a class="dropdown-item" href="{{ route('advertisement.create') }}">Создать
                                             объявление</a></li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>

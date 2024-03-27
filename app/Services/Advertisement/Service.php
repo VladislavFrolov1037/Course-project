@@ -2,23 +2,48 @@
 
 namespace App\Services\Advertisement;
 
+use App\Models\Address;
 use App\Models\Advertisement;
+use App\Models\City;
+use App\Models\District;
 use App\Models\Favourite;
+use App\Models\Image;
+use App\Models\RepairType;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class Service
 {
     public function store($data)
     {
+        $address = Address::create([
+            'address' => $data['address'],
+            'house_number' => $data['house_number'],
+            'district_id' => $data['district_id'],
+        ]);
+
+        $images = $data['images'];
+
+        $data['address_id'] = $address->id;
+
+        $data = Arr::except($data, ['address', 'house_number', 'district_id', 'images']);
+
         $data['balcony'] = ($data['balcony'] === 'true');
         $data['user_id'] = auth()->user()->id;
+
         $advertisement = Advertisement::create($data);
-        return $advertisement;
+
+        foreach ($images as $img) {
+            Image::create([
+                'url' => $img->store('uploads', 'public'),
+                'advertisement_id' => $advertisement->id,
+            ]);
+        }
     }
 
     public function update($advertisement, $data)
     {
-        $user = Auth::user();
+        $user = auth()->user();
         $data['user_id'] = $user->id;
 
         $data['balcony'] = ($data['balcony'] === 'true');
@@ -39,12 +64,20 @@ class Service
 
     public function addToFavourites($advertisement)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         Favourite::firstOrCreate([
             'user_id' => $user->id,
             'advertisement_id' => $advertisement->id,
         ]);
+    }
+
+    public function getData()
+    {
+        $repairTypes = RepairType::all();
+        $cities = City::all();
+        $districts = District::all();
+        return compact('repairTypes', 'cities', 'districts');
     }
 
 }

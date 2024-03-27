@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\StoreRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -15,27 +16,14 @@ class RegisterController extends Controller
         return view('auth.register');
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
+        // Вынести в сервис
+        $data = $request->validated();
 
-        // Вынести
-        $request->validate([
-            'name' => ['required', 'string'],
-            'email' => ['required', 'string', 'email', 'unique:users'],
-            'phone' => ['required', 'string', 'unique:users', 'regex:/^(\+7|8)\d{10}$/'],
-            'image' => ['required', 'extensions:jpg,png,jpeg'],
-            'password' => ['required', 'min:4', 'confirmed'],
-        ]);
+        $data['image'] = $request->file('image')->store('uploads', 'public');
 
-        // Придумать что можно сделать... (Мб массивом, )
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'image' => $request->file('image')->store('uploads', 'public'),
-            'password' => $request->password,
-            'role' => 'user',
-        ]);
+        $user = User::create($data);
 
         Auth::login($user);
 

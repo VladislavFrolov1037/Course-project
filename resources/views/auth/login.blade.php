@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="register">
-        <form class="custom-form" action="{{ route('login') }}" method="post" novalidate>
+        <form class="custom-form" action="{{ route('login') }}" method="post">
             @csrf
             <h3>Авторизация</h3>
             <div class="form-group mb-2">

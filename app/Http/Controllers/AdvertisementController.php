@@ -13,62 +13,42 @@ use App\Models\Image;
 use App\Models\RentalTime;
 use App\Models\RepairType;
 use App\Models\TypeObject;
+use Illuminate\Support\Arr;
 
 class AdvertisementController extends BaseController
 {
     public function index(AdvertisementFilter $request)
     {
-        // Надо куда-то вынести...
-        $repairTypes = RepairType::all();
-        $cities = City::all();
-        $districts = District::all();
+        $data = $this->service->getData();
 
         $advertisements = Advertisement::Filter($request)->where('status_id', 2)->paginate(9);
-        return view('advertisement.index', compact('advertisements', 'districts', 'repairTypes', 'cities'));
+
+        return view('advertisement.index', array_merge($data, ['advertisements' => $advertisements]));
     }
 
     public function create()
     {
-        // Надо куда-то вынести...
-        $repairTypes = RepairType::all();
-        $cities = City::all();
-        $districts = District::all();
+        $data = $this->service->getData();
 
-        return view('advertisement.create', compact('districts', 'repairTypes', 'cities'));
+        return view('advertisement.create', $data);
     }
 
     public function store(StoreRequest $request)
     {
         $data = $request->validated();
 
-        $address = Address::create([
-            'address' => $request->address,
-            'house_number' => $request->house_number,
-            'district_id' => $request->district_id,
-        ]);
+        $this->service->store($data);
 
-        $data['address_id'] = $address->id;
-
-        $advertisement = $this->service->store($data);
-
-
-        $images = $request->file('images');
-
-        foreach ($images as $img) {
-            Image::create([
-                'url' => $img->store('uploads', 'public'),
-                'advertisement_id' => $advertisement->id,
-            ]);
-        }
-
-        return redirect()->route('advertisement.index');
+        return redirect()->route('user.index');
     }
 
     public function show(Advertisement $advertisement)
     {
         $this->service->updateViews($advertisement);
-//        $user = User::find($advertisement->user_id);
-        return view('advertisement.show', compact('advertisement'));
+
+        $images = $advertisement->images;
+
+        return view('advertisement.show', compact('advertisement', 'images'));
     }
 
     public function edit(Advertisement $advertisement)
@@ -92,10 +72,12 @@ class AdvertisementController extends BaseController
     {
         $advertisement->delete();
 
-        if (auth()->user()->role === 'admin')
-            return redirect()->route('admin.advertisement');
+//        if (auth()->user()->role === 'admin')
+//            return redirect()->route('admin.advertisement');
+//
+//        return redirect()->route('advertisement.index');
 
-        return redirect()->route('advertisement.index');
+        return back();
     }
 
 }

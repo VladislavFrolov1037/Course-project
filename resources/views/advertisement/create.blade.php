@@ -11,7 +11,8 @@
         </div>
     </div>
     <div class="insertCreateForm">
-        <form class="custom-form" action="{{ route('advertisement.store') }}" method="post" enctype="multipart/form-data">
+        <form class="custom-form" action="{{ route('advertisement.store') }}" method="post"
+              enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Город</label>
@@ -88,7 +89,8 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Кол-во этажей в доме</label>
-                <input class="form-control" type="number" name="num_floors" value="{{ old('num_floors') }}" placeholder="3">
+                <input class="form-control" type="number" name="num_floors" value="{{ old('num_floors') }}"
+                       placeholder="3">
                 @error('num_floors')
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
@@ -147,11 +149,15 @@
             </div>
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Фотография</label>
-                <input type="file" multiple class="form-control" value="{{ old('image') }}" name="images[]"
+                <input type="file" multiple class="form-control" value="{{ old('images') }}" name="images[]"
                        id="exampleInputPassword1"
                        placeholder="Формат jpg или png">
-                @error('image')
-                <p class="text-danger">{{ $message }}</p>
+                @error('images')
+                    <p class="text-danger">{{ $message }}</p>
+                @else
+                    @error('images.*')
+                        <p class="text-danger">{{ $message }}</p>
+                    @enderror
                 @enderror
             </div>
             <button type="submit" class="btn btn-primary">Отправить на рассмотрение</button>

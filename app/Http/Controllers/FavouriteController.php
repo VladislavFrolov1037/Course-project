@@ -10,9 +10,8 @@ class FavouriteController extends BaseController
 
     public function index()
     {
-
         if (Auth::check()) {
-            $user = Auth::user();
+            $user = auth()->user();
 
             $advertisements = Advertisement::whereIn('id', $user->favourites->pluck('advertisement_id'))->get();
 
@@ -31,7 +30,7 @@ class FavouriteController extends BaseController
 
     public function destroy(Advertisement $advertisement)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         $user->favourites()->where('advertisement_id', $advertisement->id)->firstOrFail()->delete();
 

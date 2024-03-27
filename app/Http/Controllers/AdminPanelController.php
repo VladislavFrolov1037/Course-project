@@ -35,6 +35,7 @@ class AdminPanelController extends Controller
 
     public function changeStatus(Request $request, Advertisement $advertisement)
     {
+        // Вынести в service
         if ($request->input('action') === 'approve') {
             $advertisement->status_id = 2;
         } else {

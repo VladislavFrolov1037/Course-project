@@ -37,4 +37,9 @@ class Advertisement extends Model
     public function scopeFilter(Builder $builder, QueryFilter $filter) {
         return $filter->apply($builder);
     }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'advertisement_id', 'id');
+    }
 }

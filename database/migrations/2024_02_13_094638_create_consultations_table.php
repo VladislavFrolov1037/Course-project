@@ -15,7 +15,7 @@ return new  class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->string('email', 100);
-            $table->string('phone', 11);
+            $table->string('phone', 12);
             $table->date('date');
             $table->foreignId('status_id')->constrained();
         });

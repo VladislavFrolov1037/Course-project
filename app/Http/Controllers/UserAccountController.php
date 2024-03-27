@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\UserUpdateRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UserAccountController extends Controller
 {
@@ -17,11 +18,10 @@ class UserAccountController extends Controller
             return $next($request);
         });
     }
-
     public function index()
     {
         $user = $this->user;
-        $advertisements = $this->user->advertisements;
+        $advertisements = $user->advertisements;
 
         return view('user.index', compact('user', 'advertisements'));
     }
@@ -31,5 +31,28 @@ class UserAccountController extends Controller
         $advertisements = $this->user->advertisements;
 
         return view('user.advertisements', compact('advertisements'));
+    }
+
+    public function editProfile()
+    {
+        $user = $this->user;
+
+        return view('user.profile', compact('user'));
+    }
+
+    public function updateProfile(User $user, UserUpdateRequest $request)
+    {
+        $data = $request->validated();
+
+        Storage::delete($user->image);
+
+        if ($request->hasFile('image')) {
+            $photoPath = $request->file('image')->store('uploads', 'public');
+            $data['image'] = $photoPath;
+        }
+
+        $user->update($data);
+
+        return redirect()->route('user.edit');
     }
 }

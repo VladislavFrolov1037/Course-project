@@ -8,7 +8,9 @@
             </p>
         </div>
         <div class="info">
-            <h1><span>г.{{ $advertisement->address->district->city->name }}, улица {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}</span></h1>
+            <h1>
+                <span>г.{{ $advertisement->address->district->city->name }}, улица {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}</span>
+            </h1>
         </div>
     </div>
     <div class="container mt-4">
@@ -17,8 +19,27 @@
                 <div class="card">
                     <div class="row no-gutters">
                         <div class="col-md-6">
-                            <img height="300" width="1200" src="{{ $advertisement->image }}" class="card-img"
-                                 alt="Product Image">
+                            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    @foreach($images as $key => $image)
+                                        <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
+                                            <img height="300" width="1200" class="d-block w-100"
+                                                 src="{{ asset('/storage/' . $image->url) }}"
+                                                 class="slide card-img"
+                                                 alt="Product Image">
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <button class="carousel-control-prev btn btn-dark btn-sm rounded-0" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next btn btn-dark btn-sm rounded-0" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="card-body">
@@ -116,4 +137,7 @@
             </div>
         </div>
     </div>
+
 @endsection
+
+

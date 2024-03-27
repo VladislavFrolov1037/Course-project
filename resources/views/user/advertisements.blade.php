@@ -2,7 +2,7 @@
 @section('content')
     <div class="infoPage">
         <div class="path">
-            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - <a href="{{ route('user') }}">Личный кабинет</a> -
+            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - <a href="{{ route('user.index') }}">Личный кабинет</a> -
                 <span>Мои объявления</span>
             </p>
         </div>

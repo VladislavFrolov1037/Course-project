@@ -25,6 +25,8 @@ class ReviewController extends Controller
     {
         $data = $request->validated();
 
+
+        // В сервис
         $data['date'] = Carbon::now()->format('Y-m-d');
         $data['user_id'] = auth()->user()->id;
 

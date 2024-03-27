@@ -12,9 +12,9 @@ return new class extends Migration {
     {
         Schema::create('feedback_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
-            $table->string('message');
-            $table->foreignId('status_id')->constrained();
+            $table->string('email', 100);
+            $table->text('message');
+            $table->foreignId('status_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }
