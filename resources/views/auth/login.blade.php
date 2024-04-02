@@ -30,9 +30,16 @@
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
+            <div class="form-group mb-2">
+                <input type="checkbox" class="form-check-input" id="checkbox" name="remember">
+                <label for="checkbox">запомнить меня</label>
+                @error('checkbox')
+                <p class="text-danger">{{ $message }}</p>
+                @enderror
+            </div>
             <button type="submit" class="btn btn-primary w-100 mt-3">Авторизоваться</button>
             <small>
-                <a href="">Нет аккаунта?</a>
+                <a href="{{ route('register') }}">Нет аккаунта?</a>
             </small>
         </form>
     </div>

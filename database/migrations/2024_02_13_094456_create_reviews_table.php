@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->tinyInteger('rating');
             $table->date('date')->default(now());
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('status_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('status_id')->default(1)->constrained()->cascadeOnDelete();
         });
     }
 

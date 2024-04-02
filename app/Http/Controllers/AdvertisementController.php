@@ -14,6 +14,7 @@ use App\Models\RentalTime;
 use App\Models\RepairType;
 use App\Models\TypeObject;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
 
 class AdvertisementController extends BaseController
 {
@@ -23,7 +24,9 @@ class AdvertisementController extends BaseController
 
         $advertisements = Advertisement::Filter($request)->where('status_id', 2)->paginate(9);
 
-        return view('advertisement.index', array_merge($data, ['advertisements' => $advertisements]));
+        $images = Image::all();
+
+        return view('advertisement.index', array_merge($data, ['advertisements' => $advertisements, 'images' => $images]));
     }
 
     public function create()

@@ -8,7 +8,6 @@
         </div>
         <div class="info">
             <h1>Личный кабинет</h1>
-            <p>В личном кабинете можно редактировать личную информацию, а также посмотреть свои объявления</p>
         </div>
     </div>
     <div class="container shadow-lg p-3 mb-5 bg-white rounded">
@@ -95,6 +94,11 @@
                         </div>
                     @endif
                 </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+
             </div>
         </div>
     </div>

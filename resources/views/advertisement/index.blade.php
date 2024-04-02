@@ -164,7 +164,7 @@
                     <a href="{{ route('advertisement.show', $advertisement->id) }}" class="product-link">
                         <div class="card product-card">
                             <img
-                                src="https://jumanji.livspace-cdn.com/magazine/wp-content/uploads/sites/4/2022/02/01073127/Cover-1.png"
+                                src="{{ asset('storage/' . $advertisement->images->first()->url) }}"
                                 class="card-img-top product-image" alt="Product Image">
                             <div class="card-body product-details">
                                 <h4 class="card-title">г.{{ $advertisement->address->district->city->name }},<br>

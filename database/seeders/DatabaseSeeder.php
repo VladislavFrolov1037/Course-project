@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             RepairTypeSeeder::class,
             AdvertisementSeeder::class,
             ReviewSeeder::class,
-
+            ImageSeeder::class
         ]);
 
         // \App\Models\User::factory(10)->create();

@@ -68,7 +68,7 @@
             </div>
             <button type="submit" class="btn btn-primary w-100 mt-3">Зарегистрироваться</button>
             <small>
-                <a href="">Уже есть аккаунт?</a>
+                <a href="{{ route('login') }}">Уже есть аккаунт?</a>
             </small>
         </form>
     </div>

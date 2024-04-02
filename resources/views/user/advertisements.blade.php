@@ -8,7 +8,9 @@
         </div>
         <div class="info">
             <h1>Мои объявления</h1>
-            <p>Здесь вы видите все ваши объявления</p>
+            @if (count($advertisements) === 0)
+                <h4>У вас нет объявлений, хотите <a href="{{ route('advertisement.create') }}">создать</a>?</h4>
+            @endif
         </div>
     </div>
     <div class="container">

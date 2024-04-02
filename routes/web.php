@@ -26,17 +26,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [MainController::class, 'index'])->name('main');
 Route::get('/aboutUs', [AboutUsController::class, 'index'])->name('aboutUs');
 
-// Добавление в избранное
 Route::prefix('favourites')->controller(FavouriteController::class)->group(function () {
     Route::get('/', 'index')->name('favourite');
     Route::post('/{advertisement}', 'store')->name('favourite.store');
     Route::delete('/{advertisement}', 'destroy')->name('favourite.delete');
 });
 
-Route::prefix('reviews')->controller(ReviewController::class)->as('review.')->group(function () {
+Route::group(['prefix' => 'reviews', 'controller' => 'ReviewController', 'as' => 'review.'], function () {
     Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
+
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('/create', 'create')->middleware('auth')->name('create');
+        Route::post('/', 'store')->middleware('auth')->name('store');
+        Route::delete('/{review}', 'destroy')->middleware('auth')->name('delete');
+    });
 });
 
 Route::prefix('advertisements')->controller(AdvertisementController::class)->as('advertisement.')->group(function () {
@@ -49,7 +52,6 @@ Route::prefix('advertisements')->controller(AdvertisementController::class)->as(
     Route::delete('/{advertisement}', 'destroy')->middleware('auth')->name('delete');
 });
 
-// Авторизация && Регистрация && Logout
 Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisterController::class, 'create'])->name('register');
     Route::post('/register', [RegisterController::class, 'store']);
@@ -57,16 +59,15 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [LoginController::class, 'login']);
 });
 
-Route::get('/logout', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
-
+Route::get('/logout', [LoginController::class, 'destroy'])->middleware('auth')  ->name('logout');
 
 Route::prefix('user')->controller(UserAccountController::class)->middleware('auth')->group(function () {
     Route::get('', 'index')->name('user.index');
     Route::get('/profile', 'editProfile')->name('user.edit');
     Route::patch('/profile/{user}', 'updateProfile')->name('user.update');
-    Route::get('/advertisements', 'myAdvertisements')->name('user.advertisements');
+    Route::get('/advertisements', 'getUserAdvertisements')->name('user.advertisements');
+    Route::get('/reviews', 'getUserReviews')->name('user.reviews');
 });
-
 
 Route::prefix('admin')->controller(AdminPanelController::class)->middleware('admin')->as('admin.')->group(function () {
     Route::get('/', 'index')->name('index');

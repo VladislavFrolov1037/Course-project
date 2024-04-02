@@ -18,6 +18,7 @@ class UserAccountController extends Controller
             return $next($request);
         });
     }
+
     public function index()
     {
         $user = $this->user;
@@ -26,7 +27,7 @@ class UserAccountController extends Controller
         return view('user.index', compact('user', 'advertisements'));
     }
 
-    public function myAdvertisements()
+    public function getUserAdvertisements()
     {
         $advertisements = $this->user->advertisements;
 
@@ -54,5 +55,12 @@ class UserAccountController extends Controller
         $user->update($data);
 
         return redirect()->route('user.edit');
+    }
+
+    public function getUserReviews()
+    {
+        $reviews = $this->user->reviews;
+
+        return view('user.reviews', compact('reviews'));
     }
 }

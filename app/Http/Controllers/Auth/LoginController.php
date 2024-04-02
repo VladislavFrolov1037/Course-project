@@ -16,7 +16,6 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request)
     {
-
         $credentials = $request->validated();
 
         if (!Auth::attempt($credentials)) {
@@ -31,7 +30,7 @@ class LoginController extends Controller
             return redirect()->route('admin.index');
         }
 
-        return redirect()->route('user');
+        return redirect()->route('user.index');
     }
 
     public function destroy(Request $request)

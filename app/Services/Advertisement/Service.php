@@ -9,6 +9,7 @@ use App\Models\District;
 use App\Models\Favourite;
 use App\Models\Image;
 use App\Models\RepairType;
+use App\Models\Review;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,4 +81,26 @@ class Service
         return compact('repairTypes', 'cities', 'districts');
     }
 
+    public function sortReview()
+    {
+
+        if (isset($request->orderBy)) {
+            if ($request->orderBy === 'rating-high-low') {
+                $reviews = Review::with('user')->orderBy('rating', 'desc')->get();
+            }
+            if ($request->orderBy === 'rating-low-high') {
+                $reviews = Review::with('user')->orderBy('rating')->get();
+            }
+            if ($request->orderBy === 'date-old-new') {
+                $reviews = Review::with('user')->orderBy('date', 'desc')->get();
+            }
+            if ($request->orderBy === 'date-new-old') {
+                $reviews = Review::with('user')->orderBy('date')->get();
+            }
+            if ($request->orderBy === 'default') {
+                $reviews = Review::with('user')->get();
+            }
+        }
+
+    }
 }

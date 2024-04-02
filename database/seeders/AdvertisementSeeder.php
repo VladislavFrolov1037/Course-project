@@ -14,6 +14,6 @@ class AdvertisementSeeder extends Seeder
      */
     public function run(): void
     {
-        Advertisement::factory(50)->create();
+        Advertisement::factory(100)->create();
     }
 }

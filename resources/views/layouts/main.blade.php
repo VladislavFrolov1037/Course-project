@@ -5,9 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Document</title>
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    @vite(['resources/js/app.js'])
+    @vite('resources/js/app.js')
 </head>
 <body>
 <header class="shadow p-2 mb-5 bg-white rounded">
@@ -66,9 +67,11 @@
                                         <li><a class="dropdown-item" href="{{ route('admin.index') }}">Админ панель</a>
                                         </li>
                                     @endcan
-                                    <li><a class="dropdown-item" href="{{ route('user.index') }}">Личный кабинет</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('advertisement.create') }}">Создать
-                                            объявление</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('user.index') }}">Личный кабинет</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('user.advertisements') }}">Мои
+                                            объявления</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('user.reviews') }}">Мои отзывы</a></li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
                                 </ul>
                             </li>

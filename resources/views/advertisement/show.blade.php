@@ -25,7 +25,7 @@
                                         <div class="carousel-item {{ $key === 0 ? 'active' : '' }}">
                                             <img height="300" width="1200" class="d-block w-100"
                                                  src="{{ asset('/storage/' . $image->url) }}"
-                                                 class="slide card-img"
+                                                 class="slide cardss-img"
                                                  alt="Product Image">
                                         </div>
                                     @endforeach

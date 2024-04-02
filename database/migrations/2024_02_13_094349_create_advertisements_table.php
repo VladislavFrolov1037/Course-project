@@ -20,9 +20,9 @@ return new class extends Migration {
             $table->integer('floor');
             $table->integer('square');
             $table->integer('price');
-            $table->string('type_object');
+            $table->string('type_object', 50);
             $table->string('balcony');
-            $table->string('rental_time');
+            $table->string('rental_time', 50);
             $table->text('description');
             $table->unsignedBigInteger('views')->default(0);
             $table->foreignId('status_id')->default(1)->constrained();
