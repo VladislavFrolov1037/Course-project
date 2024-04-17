@@ -16,8 +16,8 @@ return new  class extends Migration
             $table->string('name', 50);
             $table->string('email', 100);
             $table->string('phone', 12);
-            $table->date('date');
-            $table->foreignId('status_id')->constrained();
+            $table->date('date')->default(now());
+            $table->foreignId('status_id')->default(1)->constrained()->cascadeOnDelete();
         });
     }
 

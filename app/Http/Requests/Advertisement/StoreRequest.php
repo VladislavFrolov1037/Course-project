@@ -23,19 +23,31 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'repair_type_id' => ['required', 'integer'],
+            'repair_type' => ['required', 'string'],
             'num_rooms' => ['required', 'integer'],
             'num_floors' => ['required', 'integer'],
-            'floor' => ['required', 'integer'],
+            'floor' => function ($attribute, $value, $fail) {
+                $data = $this->all();
+                if ($data['type_object'] !== 'Дом' && empty($value)) {
+                    $fail('Поле этаж является обязательным.');
+                }
+            },
             'square' => ['required', 'integer'],
             'price' => ['required', 'integer'],
             'type_object' => ['required', 'string'],
-            'balcony' => ['required', 'string'],
+
+
+            'balcony' => function ($attribute, $value, $fail) {
+                $data = $this->all();
+                if ($data['type_object'] !== 'Дом' && !in_array($value, ['true', 'false'])) {
+                    $fail('Поле балкон является обязательным и должно быть либо "true", либо "false".');
+                }
+            },
+
             'rental_time' => ['required', 'string'],
             'description' => ['required', 'string'],
             'status_id' => ['default:1'],
-
-            'address' =>  ['required', 'string'],
+            'address' => ['required', 'string'],
             'house_number' => ['required', 'integer'],
             'district_id' => ['required'],
             'images' => ['required', 'array', 'max:4'],

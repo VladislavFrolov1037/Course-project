@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Consultation extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'email',
+        'phone'
+    ];
+
+    public $timestamps = false;
 }

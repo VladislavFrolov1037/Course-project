@@ -11,25 +11,25 @@ class Status extends Model
 
     public function advertisements()
     {
-        return $this->hasMany(Advertisement::class, 'status_id', 'id');
+        return $this->hasMany(Advertisement::class);
     }
 
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'status_id', 'id');
+        return $this->hasMany(Review::class);
     }
     public function meetings()
     {
-        return $this->hasMany(Meeting::class, 'status_id', 'id');
+        return $this->hasMany(Meeting::class);
     }
     public function feedbackRequests()
     {
-        return $this->hasMany(FeedbackRequest::class, 'status_id', 'id');
+        return $this->hasMany(FeedbackRequest::class);
     }
 
     public function consultations()
     {
-        return $this->hasMany(Consultation::class, 'status_id', 'id');
+        return $this->hasMany(Consultation::class);
     }
 
 }

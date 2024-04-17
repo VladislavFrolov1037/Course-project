@@ -16,16 +16,27 @@ class ImageFactory extends Factory
      */
 
     protected static $i = 1;
+
     public function definition(): array
     {
-
-        if (static::$i >= 101) {
+        if (static::$i >= 201) {
             static::$i = 1;
         }
 
+        if (static::$i <= 100) {
+            $imageRange = range(1, 19);
+        } else {
+            $imageRange = range(20, 30);
+        }
+
+        $randomImage = fake()->randomElement($imageRange);
+
+        static::$i++;
+
         return [
-            'url' => 'uploads/' . random_int(1, 19) . '.jpg',
-            'advertisement_id' => str(static::$i++),
+            'url' => 'uploads/' . $randomImage . '.jpg',
+            'advertisement_id' => str(static::$i - 1),
         ];
     }
+
 }

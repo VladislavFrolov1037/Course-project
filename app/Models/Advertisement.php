@@ -10,8 +10,21 @@ use Illuminate\Database\Eloquent\Model;
 class Advertisement extends Model
 {
     use HasFactory;
+
     protected $table = 'advertisements';
     protected $guarded = false;
+
+    public function isInFavourites()
+    {
+        $user = auth()->user();
+        if ($user) {
+            return $this->favourites()->where('user_id', $user->id)->exists();
+        } else {
+            $favourites = session()->get('favourites', []);
+
+            return in_array($this->id, $favourites);
+        }
+    }
 
 
     public function favourites()
@@ -34,7 +47,13 @@ class Advertisement extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function scopeFilter(Builder $builder, QueryFilter $filter) {
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function scopeFilter(Builder $builder, QueryFilter $filter)
+    {
         return $filter->apply($builder);
     }
 

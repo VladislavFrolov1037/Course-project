@@ -9,9 +9,9 @@ use App\Models\District;
 class AdvertisementFilter extends QueryFilter
 {
 
-    public function type_object($id)
+    public function type_object($typeObject)
     {
-        return $this->builder->where('type_object', $id);
+        return $this->builder->where('type_object', $typeObject);
     }
 
     public function square($areaArr)
@@ -41,12 +41,10 @@ class AdvertisementFilter extends QueryFilter
     public function address_id($addressArr)
     {
 
-        $city_id = $addressArr[0];
-        $district_id = $addressArr[1];
+        $cityId = $addressArr[0];
+        $districtId = $addressArr[1];
 
-        $district = City::findOrFail($city_id)->districts()->where('id', $district_id)->first();
-
-        $city = City::find($city_id);
+        $district = City::findOrFail($cityId)->districts()->where('id', $districtId)->first();
 
         if ($district) {
             $address = $district->addresses()->first();
@@ -54,8 +52,8 @@ class AdvertisementFilter extends QueryFilter
                 return $this->builder->where('address_id', $address->id);
             }
         } else {
-            return $this->builder->whereHas('address.district', function ($query) use ($city_id) {
-               $query->where('city_id', $city_id);
+            return $this->builder->whereHas('address.district', function ($query) use ($cityId) {
+                $query->where('city_id', $cityId);
             })->pluck('address_id');
         }
 
@@ -82,18 +80,18 @@ class AdvertisementFilter extends QueryFilter
         return $this->builder->where('num_floors', $num_floors);
     }
 
-    public function repair_type_id($id)
+    public function repair_type($repairType)
     {
-        if ($id != 5) {
-            return $this->builder->where('repair_type_id', $id);
+        if ($repairType !== 'any') {
+            return $this->builder->where('repair_type', $repairType);
         }
 
         return $this->builder;
     }
 
-    public function rental_time($id)
+    public function rental_time($rentalTime)
     {
-        return $this->builder->where('rental_time', $id);
+        return $this->builder->where('rental_time', $rentalTime);
     }
 
     public function balcony($balcony)

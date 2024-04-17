@@ -14,7 +14,7 @@
 <header class="shadow p-2 mb-5 bg-white rounded">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Магазин</a>
+            <a class="navbar-brand" href="{{ route('main') }}">Магазин</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -51,12 +51,12 @@
                         </li>
                     @endguest
                 </ul>
-                @auth
-                    <div class="navbar-nav ml-auto personalAcc">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('favourite') }}">Избранное</a>
-                            </li>
+                <div class="navbar-nav ml-auto personalAcc">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('favourite') }}">Избранное</a>
+                        </li>
+                        @auth
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
                                    data-bs-toggle="dropdown" aria-expanded="false">
@@ -75,9 +75,9 @@
                                     <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
                                 </ul>
                             </li>
-                        </ul>
-                    </div>
-                @endauth
+                        @endauth
+                    </ul>
+                </div>
             </div>
         </div>
     </nav>

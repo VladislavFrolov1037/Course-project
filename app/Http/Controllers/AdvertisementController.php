@@ -5,33 +5,32 @@ namespace App\Http\Controllers;
 use App\Filters\AdvertisementFilter;
 use App\Http\Requests\Advertisement\StoreRequest;
 use App\Http\Requests\Advertisement\UpdateRequest;
-use App\Models\Address;
 use App\Models\Advertisement;
-use App\Models\City;
-use App\Models\District;
 use App\Models\Image;
-use App\Models\RentalTime;
-use App\Models\RepairType;
-use App\Models\TypeObject;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Mail;
+use App\Services\AdvertisementService;
 
-class AdvertisementController extends BaseController
+class AdvertisementController extends Controller
 {
+
+    protected AdvertisementService $advertisementService;
+
+    public function __construct(AdvertisementService $advertisementService)
+    {
+        $this->advertisementService = $advertisementService;
+    }
+
     public function index(AdvertisementFilter $request)
     {
-        $data = $this->service->getData();
+        $data = $this->advertisementService->getData(true, true, false, true);
 
         $advertisements = Advertisement::Filter($request)->where('status_id', 2)->paginate(9);
 
-        $images = Image::all();
-
-        return view('advertisement.index', array_merge($data, ['advertisements' => $advertisements, 'images' => $images]));
+        return view('advertisement.index', array_merge($data, ['advertisements' => $advertisements]));
     }
 
     public function create()
     {
-        $data = $this->service->getData();
+        $data = $this->advertisementService->getData(true, true, false, true);
 
         return view('advertisement.create', $data);
     }
@@ -40,14 +39,18 @@ class AdvertisementController extends BaseController
     {
         $data = $request->validated();
 
-        $this->service->store($data);
+        if ($data['type_object'] === 'Дом') {
+            $data['balcony'] = '';
+        }
+
+        $this->advertisementService->store($data);
 
         return redirect()->route('user.index');
     }
 
     public function show(Advertisement $advertisement)
     {
-        $this->service->updateViews($advertisement);
+        $this->advertisementService->updateViews($advertisement);
 
         $images = $advertisement->images;
 
@@ -56,17 +59,16 @@ class AdvertisementController extends BaseController
 
     public function edit(Advertisement $advertisement)
     {
-        // Надо куда-то вынести...
-        $districts = District::all();
-        $repairTypes = RepairType::all();
-        return view('advertisement.edit', compact('advertisement', 'districts', 'repairTypes'));
+        $data = $this->advertisementService->getData(true, false, true);
+
+        return view('advertisement.edit', array_merge($data, ['advertisement' => $advertisement]));
     }
 
     public function update(Advertisement $advertisement, UpdateRequest $request)
     {
         $data = $request->validated();
 
-        $this->service->update($advertisement, $data);
+        $this->advertisementService->update($advertisement, $data);
 
         return redirect()->route('advertisement.show', $advertisement->id);
     }
@@ -75,12 +77,16 @@ class AdvertisementController extends BaseController
     {
         $advertisement->delete();
 
-//        if (auth()->user()->role === 'admin')
-//            return redirect()->route('admin.advertisement');
-//
-//        return redirect()->route('advertisement.index');
+        if (auth()->user()->isAdmin()) {
+            $referer = request()->header('referer');
+            if ($referer) {
 
-        return back();
+                if (strpos($referer, (string)$advertisement->id === false)) {
+                    return redirect()->to($referer);
+                }
+            }
+            return redirect()->route('admin.advertisement.index');
+        }
+        return redirect()->route('user.advertisements');
     }
-
 }

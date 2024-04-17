@@ -34,7 +34,9 @@
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Отправить на рассмотрение</button>
+            <button type="submit" class="btn btn-primary sendForm">Отправить на рассмотрение</button>
         </form>
     </div>
+
+    <script src="{{ asset('assets/js/sendForm.js') }}"></script>
 @endsection

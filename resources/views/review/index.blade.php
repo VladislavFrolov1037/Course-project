@@ -9,7 +9,7 @@
         <div class="info">
             <h1>Отзывы</h1>
             @auth
-                <a href="{{ route('review.create') }}" class="btn btn-primary mt-2">Оставить отзыв</a>
+                <a href="{{ route('review.create') }}" class="btn btn-primary mt-2 sendForm">Оставить отзыв</a>
             @endauth
             @guest
                 <h4>Чтобы иметь возможность оставлять отзывы вам нужно <a
@@ -46,9 +46,20 @@
             @endforeach
         </div>
     </div>
+    <div>
+        {{ $reviews->withQueryString()->links() }}
+    </div>
 
     <script>
         let sort = document.getElementById('sort');
+        let currentOrderBy = '{{ app('request')->input('orderBy', 'default') }}';
+
+        for (let i = 0; i < sort.options.length; i++) {
+            if (sort.options[i].getAttribute('data-order') === currentOrderBy) {
+                sort.options[i].setAttribute('selected', 'selected');
+                break;
+            }
+        }
 
         sort.addEventListener('change', (e) => {
             let orderBy = e.target.options[e.target.selectedIndex].getAttribute('data-order');
@@ -62,13 +73,32 @@
                 }
             })
                 .then(function (response) {
-                    document.querySelector('.comments').innerHTML = response.data;
-                })
-                .catch(function (error) {
-                    console.error(error);
+                    renderReviews(response.data.reviews);
+                    document.querySelector('.pagination').innerHTML = response.data.pagination;
                 });
-
         });
 
+        function renderReviews(reviews) {
+            let commentsDiv = document.querySelector('.comments');
+            commentsDiv.innerHTML = '';
+            reviews.forEach(review => {
+                let reviewHtml = `
+                <div class="shadow-lg feedback">
+                    <div class="feedbacks">
+                        <h1>${review.user.name}`;
+                for (let i = 1; i <= review.rating; i++) {
+                    reviewHtml += `<img src="{{ asset('images/star.png') }}" alt="">`;
+                }
+                reviewHtml += `</h1>
+                        <div class="date mt-1">Добавлено: ${review.date}</div>
+                        <div class="comment">
+                            <p class="comment">${review.comment}</p>
+                        </div>
+                    </div>
+                </div>`;
+                commentsDiv.innerHTML += reviewHtml;
+            });
+        }
     </script>
+
 @endsection

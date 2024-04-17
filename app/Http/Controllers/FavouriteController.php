@@ -3,37 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Services\AdvertisementService;
+use App\Services\FavouriteService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 
-class FavouriteController extends BaseController
+class FavouriteController extends Controller
 {
+
+    protected FavouriteService $favouriteService;
+
+    public function __construct(FavouriteService $favouriteService)
+    {
+        $this->favouriteService = $favouriteService;
+    }
 
     public function index()
     {
-        if (Auth::check()) {
-            $user = auth()->user();
+        $user = auth()->user();
 
-            $advertisements = Advertisement::whereIn('id', $user->favourites->pluck('advertisement_id'))->get();
+        $advertisements = $this->favouriteService->getFavouriteAdvertisements($user);
 
-            return view('favourite.index', compact('advertisements'));
-        } else {
-            return redirect()->route('register');
-        }
+        return view('favourite.index', compact('advertisements'));
     }
 
     public function store(Advertisement $advertisement)
     {
-        $this->service->addToFavourites($advertisement);
+        $user = auth()->user();
 
-        return redirect()->route('advertisement.index');
+        $this->favouriteService->addToFavourites($advertisement, $user);
+
+        return back();
     }
 
     public function destroy(Advertisement $advertisement)
     {
         $user = auth()->user();
 
-        $user->favourites()->where('advertisement_id', $advertisement->id)->firstOrFail()->delete();
+        $this->favouriteService->removeFromFavourites($advertisement, $user);
 
-        return redirect()->route('favourite');
+        return back();
     }
 }

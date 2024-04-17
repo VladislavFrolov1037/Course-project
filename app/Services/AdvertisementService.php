@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Advertisement;
+namespace App\Services;
 
 use App\Models\Address;
 use App\Models\Advertisement;
@@ -10,10 +10,11 @@ use App\Models\Favourite;
 use App\Models\Image;
 use App\Models\RepairType;
 use App\Models\Review;
+use App\Models\Status;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class Service
+class AdvertisementService
 {
     public function store($data)
     {
@@ -31,6 +32,10 @@ class Service
 
         $data['balcony'] = ($data['balcony'] === 'true');
         $data['user_id'] = auth()->user()->id;
+
+        if ($data['type_object'] === 'Дом') {
+            $data['balcony'] = '';
+        }
 
         $advertisement = Advertisement::create($data);
 
@@ -63,44 +68,43 @@ class Service
         }
     }
 
-    public function addToFavourites($advertisement)
+    public function getEnumValues($table, $column)
     {
-        $user = auth()->user();
+        $results = DB::select("SHOW COLUMNS FROM `$table` LIKE '$column'");
+        $columnType = $results[0]->Type;
 
-        Favourite::firstOrCreate([
-            'user_id' => $user->id,
-            'advertisement_id' => $advertisement->id,
-        ]);
+        preg_match('/^enum\((.*)\)$/', $columnType, $matches);
+
+        $values = explode(',', str_replace("'", "", $matches[1]));
+
+        return $values;
     }
 
-    public function getData()
+    public function getData($includeCities = false, $includeDistricts = false, $includeStatuses = false, $includeEnums = false): array
     {
-        $repairTypes = RepairType::all();
-        $cities = City::all();
-        $districts = District::all();
-        return compact('repairTypes', 'cities', 'districts');
-    }
+        $data = [];
 
-    public function sortReview()
-    {
-
-        if (isset($request->orderBy)) {
-            if ($request->orderBy === 'rating-high-low') {
-                $reviews = Review::with('user')->orderBy('rating', 'desc')->get();
-            }
-            if ($request->orderBy === 'rating-low-high') {
-                $reviews = Review::with('user')->orderBy('rating')->get();
-            }
-            if ($request->orderBy === 'date-old-new') {
-                $reviews = Review::with('user')->orderBy('date', 'desc')->get();
-            }
-            if ($request->orderBy === 'date-new-old') {
-                $reviews = Review::with('user')->orderBy('date')->get();
-            }
-            if ($request->orderBy === 'default') {
-                $reviews = Review::with('user')->get();
-            }
+        if ($includeEnums) {
+            $data['repairTypes'] = $this->getEnumValues('advertisements', 'repair_type');
+            $data['typeObjects'] = $this->getEnumValues('advertisements', 'type_object');
+            $data['rentalTimes'] = $this->getEnumValues('advertisements', 'rental_time');
         }
 
+        if ($includeCities) {
+            $cities = City::all();
+            $data['cities'] = $cities;
+        }
+
+        if ($includeDistricts) {
+            $districts = District::all();
+            $data['districts'] = $districts;
+        }
+
+        if ($includeStatuses) {
+            $statuses = Status::all();
+            $data['statuses'] = $statuses;
+        }
+
+        return $data;
     }
 }

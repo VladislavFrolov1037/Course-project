@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string('image', 255);
             $table->string('password', 255);
             $table->string('role', 50)->default('user');
-            $table->rememberToken();
         });
     }
 

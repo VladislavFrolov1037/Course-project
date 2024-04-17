@@ -16,5 +16,8 @@ class ImageSeeder extends Seeder
         Image::factory(100)->create();
         Image::factory(100)->create();
         Image::factory(100)->create();
+        Image::factory(100)->create();
+        Image::factory(100)->create();
+        Image::factory(100)->create();
     }
 }

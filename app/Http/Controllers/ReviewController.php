@@ -4,19 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Review\StoreRequest;
 use App\Models\Review;
+use App\Services\ReviewService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
-class ReviewController extends BaseController
+class ReviewController extends Controller
 {
+
+    protected ReviewService $reviewService;
+
+    public function __construct(ReviewService $reviewService)
+    {
+        $this->reviewService = $reviewService;
+    }
+
     public function index(Request $request)
     {
-        $reviews = Review::with('user')->get();
+        $orderBy = $request->input('orderBy', 'default');
 
-        if($request->ajax()) {
-            return view('ajax.orderBy', compact('reviews'))->render();
+        $reviews = $this->reviewService->sortReview($request);
+
+        if ($request->ajax()) {
+            $pagination = $reviews->appends(['orderBy' => $orderBy])->links()->toHtml();
+            return response()->json([
+                'reviews' => $reviews->items(),
+                'pagination' => $pagination
+            ]);
         }
-
         return view('review.index', compact('reviews'));
     }
 
@@ -29,11 +43,7 @@ class ReviewController extends BaseController
     {
         $data = $request->validated();
 
-        // В сервис
-        $data['date'] = Carbon::now()->format('Y-m-d');
-        $data['user_id'] = auth()->user()->id;
-
-        Review::create($data);
+        $this->reviewService->storeReview($data);
 
         return redirect()->route('review.index');
     }
