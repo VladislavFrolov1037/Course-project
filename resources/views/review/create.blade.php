@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="insertCreateForm">
-        <form class="custom-form" action="{{ route('review.store') }}" method="post">
+        <form class="custom-form1" action="{{ route('review.store') }}" method="post">
             @csrf
             <div class="mb-3">
                 <label for="comment" class="form-label">Комментарий</label>

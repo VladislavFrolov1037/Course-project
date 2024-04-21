@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class UserUpdateRequest extends FormRequest
@@ -12,7 +13,7 @@ class UserUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -23,7 +24,7 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string'],
+            'name' => ['required', 'string', 'max:50'],
             'email' => ['required', 'email', Rule::unique('users')->ignore(auth()->id())],
             'phone' => ['required', 'regex:/^(\+7|8)\d{10}$/', Rule::unique('users')->ignore(auth()->id())],
             'image' => ['mimes:jpg,png,jpeg', 'max:2048'],

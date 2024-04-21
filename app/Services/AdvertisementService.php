@@ -16,8 +16,44 @@ use Illuminate\Support\Facades\DB;
 
 class AdvertisementService
 {
+    public function updateAdvertisement($data, $advertisement)
+    {
+        if ($data['type_object'] === 'Дом') {
+            $data['balcony'] = '';
+        }
+
+        Address::where('id', $advertisement->address_id)->update([
+            'address' => $data['address'],
+            'house_number' => $data['house_number'],
+            'district_id' => $data['district_id'],
+        ]);
+
+        $images = $data['images'];
+
+        $data['address_id'] = $advertisement->address_id;
+
+        $data = Arr::except($data, ['address', 'house_number', 'district_id', 'images']);
+
+        Advertisement::find($advertisement->id)->update($data);
+
+        foreach ($advertisement->images as $image) {
+            $image->delete();
+        }
+
+        foreach ($images as $img) {
+            Image::create([
+                'url' => $img->store('uploads', 'public'),
+                'advertisement_id' => $advertisement->id,
+            ]);
+        }
+    }
+
     public function store($data)
     {
+        if ($data['type_object'] === 'Дом') {
+            $data['balcony'] = '';
+        }
+
         $address = Address::create([
             'address' => $data['address'],
             'house_number' => $data['house_number'],

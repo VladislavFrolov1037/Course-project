@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 @section('content')
     <div class="container mt-4">
         <div class="row">
@@ -8,8 +8,8 @@
         </div>
     </div>
 
-    @include('components.approveModal')
-    @include('components.rejectModal')
+    @include('components.modals.approveModal')
+    @include('components.modals.rejectModal')
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.addEventListener('click', function (event) {

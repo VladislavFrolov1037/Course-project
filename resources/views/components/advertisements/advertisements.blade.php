@@ -64,7 +64,7 @@
                                style="margin-right: 10px;" name="action"
                                data-action="delete">
                         <a class="btn btn-primary"
-                           href="{{ route('advertisement.edit', $advertisement->id) }}">Редактировать</a>
+                           href="{{ route('admin.advertisements.edit', $advertisement->id) }}">Редактировать</a>
                     </form>
                 @else
                     <div>
@@ -78,18 +78,17 @@
                         </button>
                     </div>
                 @endif
-
             @else
                 <div class="d-flex">
                     @if ($advertisement->user && auth()->user() && $advertisement->user->id === auth()->user()->id)
-                        @include('components.deleteModal')
+                        @include('components.modals.deleteModal')
                         <button name="action" type="button" class="btn btn-danger btn-delete"
                                 data-action="delete" data-bs-toggle="modal"
                                 data-bs-target="#delete{{$advertisement->id}}"
                                 style="margin-right: 10px;">Удалить
                         </button>
                     @endif
-                    @include('components.favouriteButton')
+                    @include('components.modals.favouriteButton')
                 </div>
             @endif
         </div>

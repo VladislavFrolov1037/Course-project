@@ -16,7 +16,8 @@ class StatusSeeder extends Seeder
         Status::insert([
             ['name' => 'Ожидание'],
             ['name' => 'Одобрено'],
-            ['name' => 'Отклонено']
+            ['name' => 'Отклонено'],
+            ['name' => 'В процессе']
         ]);
     }
 }

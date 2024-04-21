@@ -11,5 +11,13 @@
                 <p class="comment">{{ $review->comment }}</p>
             </div>
         </div>
+        @if(request()->is('admin/*'))
+            <button name="action" type="button" class="btn btn-danger btn-delete mt-3"
+                    data-action="delete" data-bs-toggle="modal"
+                    data-bs-target="#delete{{$review->id}}"
+                    style="margin-right: 10px;">Удалить
+            </button>
+            @include('components.modals.deleteModal', ['id' => $review->id, 'bodyText' => 'Вы действительно хотите удалить отзыв?', 'actionUrl' => route('admin.reviews.destroy', $review->id)])
+        @endif
     </div>
 @endforeach

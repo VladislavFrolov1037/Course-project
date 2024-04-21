@@ -16,4 +16,9 @@ class Consultation extends Model
     ];
 
     public $timestamps = false;
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

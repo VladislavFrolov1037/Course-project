@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Filters\AdminAdvertisementFilter;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateAdvertisementRequest;
 use App\Models\Advertisement;
 use App\Models\City;
 use App\Models\District;
@@ -62,5 +63,21 @@ class AdminAdvertisementController extends Controller
 
         return view('admin.advertisement.expectedAdvertisements', array_merge($data, ['advertisements' => $advertisements,
             'status' => $status]));
+    }
+
+    public function edit(Advertisement $advertisement)
+    {
+        $data = $this->advertisementService->getData(true, true, true, true);
+
+        return view('admin.advertisement.edit', array_merge($data, ['advertisement' => $advertisement]));
+    }
+
+    public function update(Advertisement $advertisement, UpdateAdvertisementRequest $request)
+    {
+        $data = $request->validated();
+
+        $this->advertisementService->updateAdvertisement($data, $advertisement);
+
+        return redirect()->route('admin.advertisements.show', $advertisement->id);
     }
 }

@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="register">
-        <form class="custom-form" action="{{ route('login') }}" method="post">
+        <form class="custom-form1" action="{{ route('login') }}" method="post">
             @csrf
             <h3>Авторизация</h3>
             <div class="form-group mb-2">
@@ -27,13 +27,6 @@
                 <input type="password" class="form-control" id="exampleInputPassword1" name="password"
                        placeholder="Пароль">
                 @error('password')
-                <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
-            <div class="form-group mb-2">
-                <input type="checkbox" class="form-check-input" id="checkbox" name="remember">
-                <label for="checkbox">запомнить меня</label>
-                @error('checkbox')
                 <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>

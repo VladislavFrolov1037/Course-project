@@ -24,16 +24,16 @@ class StoreRequest extends FormRequest
     {
         return [
             'repair_type' => ['required', 'string'],
-            'num_rooms' => ['required', 'integer'],
-            'num_floors' => ['required', 'integer'],
+            'num_rooms' => ['required', 'integer', 'min:1'],
+            'num_floors' => ['required', 'integer', 'min:1'],
             'floor' => function ($attribute, $value, $fail) {
                 $data = $this->all();
                 if ($data['type_object'] !== 'Дом' && empty($value)) {
                     $fail('Поле этаж является обязательным.');
                 }
             },
-            'square' => ['required', 'integer'],
-            'price' => ['required', 'integer'],
+            'square' => ['required', 'integer', 'min:1'],
+            'price' => ['required', 'integer', 'min:1'],
             'type_object' => ['required', 'string'],
 
 
@@ -45,11 +45,10 @@ class StoreRequest extends FormRequest
             },
 
             'rental_time' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'status_id' => ['default:1'],
-            'address' => ['required', 'string'],
-            'house_number' => ['required', 'integer'],
-            'district_id' => ['required'],
+            'description' => ['required', 'string', 'max:700'],
+            'address' => ['required', 'string', 'max:30'],
+            'house_number' => ['required', 'string'],
+            'district_id' => ['required', 'integer'],
             'images' => ['required', 'array', 'max:4'],
             'images.*' => ['image', 'mimes:jpeg,jpg,png', 'max:2048'],
         ];

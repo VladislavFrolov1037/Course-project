@@ -49,7 +49,8 @@
                             @endif
                         </strong>
                         <span>@if ($advertisement->type_object !== 'Дом')
-                                {{ $advertisement->floor }}/@endif{{ $advertisement->num_floors }}</span>
+                                {{ $advertisement->floor }}/
+                            @endif{{ $advertisement->num_floors }}</span>
                     </li>
                     <li class="list-group-item"><img width="12" height="12"
                                                      src="{{{ asset('assets/images/price.svg') }}}"
@@ -132,7 +133,7 @@
                                             <input type="button" value="Удалить" class="btn btn-danger btn_delete"
                                                    style="margin-right: 10px;" name="action" data-action="delete">
                                             <a class="btn btn-primary"
-                                               href="{{ route('advertisement.edit', $advertisement->id) }}">
+                                               href="{{ route('admin.advertisements.edit', $advertisement->id) }}">
                                                 Редактировать
                                             </a>
                                         </form>
@@ -152,7 +153,7 @@
                                         </div>
                                     @endif
                                 @elseif ($advertisement->user == auth()->user())
-                                    @include('components.deleteModal')
+                                    @include('components.modals.deleteModal')
                                     <button name="action" type="button" class="btn btn-danger btn-delete"
                                             data-action="delete" data-bs-toggle="modal"
                                             data-bs-target="#delete{{$advertisement->id}}" style="margin-right: 10px;">
@@ -160,7 +161,7 @@
                                     </button>
                                 @endif
                                 @if(!request()->is('admin/*'))
-                                    @include('components.favouriteButton')
+                                    @include('components.modals.favouriteButton')
                                 @endif
                             </div>
                         </li>

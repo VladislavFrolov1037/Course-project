@@ -2,7 +2,11 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminAdvertisementController;
+use App\Http\Controllers\Admin\AdminFeedbacksController;
+use App\Http\Controllers\Admin\AdminConsultationController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminMeetingController;
+use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\AdvertisementController;
 use App\Http\Controllers\Auth\LoginController;
@@ -73,17 +77,50 @@ Route::prefix('user')->controller(UserAccountController::class)->middleware('aut
 });
 
 Route::prefix('admin')->middleware('admin')->as('admin.')->group(function () {
-    Route::get('/',  [AdminController::class, 'index'])->name('index');
+    Route::get('/', [AdminController::class, 'index'])->name('index');
 
-    Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
-    Route::get('/users/{user}/edit', [AdminUserController::class, 'edit'])->name('users.edit');
-    Route::patch('/users/{user}', [AdminUserController::class, 'update'])->name('users.update');
+    Route::prefix('users')->controller(AdminUserController::class)->as('users.')->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('/{user}/edit', 'edit')->name('edit');
+        Route::patch('/{user}', 'update')->name('update');
+        Route::delete('/{user}', 'destroy')->name('destroy');
+    });
 
+    Route::prefix('advertisements')->controller(AdminAdvertisementController::class)->as('advertisements.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/expected', 'showExpected')->name('expected');
+        Route::get('/{advertisement}/edit', 'edit')->name('edit');
+        Route::get('/{advertisement}', 'show')->name('show');
+        Route::patch('/{advertisement}/status', 'changeStatus')->name('changeStatus');
+        Route::patch('/{advertisement}', 'update')->name('update');
+    });
 
-    Route::get('/advertisements', [AdminAdvertisementController::class, 'index'])->name('advertisement.index');
-    Route::get('/expected-advertisements', [AdminAdvertisementController::class, 'showExpected'])->name('advertisement.expected');
-    Route::get('/advertisements/{advertisement}', [AdminAdvertisementController::class, 'show'])->name('advertisements.show');
-    Route::patch('/advertisements/{advertisement}/status', [AdminAdvertisementController::class, 'changeStatus'])->name('advertisement.changeStatus');
+    Route::prefix('consultations')->controller(AdminConsultationController::class)->as('consultations.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/expected', 'expected')->name('expected');
+        Route::get('/current', 'current')->name('current');
+        Route::patch('/{consultation}/status', 'changeStatus')->name('changeStatus');
+        Route::delete('/{consultation}', 'destroy')->name('destroy');
+    });
+
+    Route::prefix('reviews')->controller(AdminReviewController::class)->as('reviews.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/expected', 'expected')->name('expected');
+        Route::get('/cancelled', 'cancelled')->name('cancelled');
+        Route::patch('/{review}/status', 'changeStatus')->name('changeStatus');
+        Route::delete('/{review}', 'destroy')->name('destroy');
+    });
+
+    Route::prefix('feedbacks')->controller(AdminFeedbacksController::class)->as('feedbacks.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/approve', 'approve')->name('approve');
+        Route::patch('/{feedback}/status', 'changeStatus')->name('changeStatus');
+        Route::delete('/{feedback}', 'destroy')->name('destroy');
+    });
+
+    Route::prefix('meetings')->controller(AdminMeetingController::class)->as('meetings.')->group(function () {
+        Route::get('/', 'index')->name('index');
+    });
 });
 
 

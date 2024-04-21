@@ -3,7 +3,7 @@
     <div class="container mb-5">
         <ul class="nav nav-tabs" id="advertisementTabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="all-ads-tab" href="{{ route('admin.advertisement.index') }}" role="tab"
+                <a class="nav-link active" id="all-ads-tab" href="{{ route('admin.advertisements.index') }}" role="tab"
                    aria-controls="all-ads" aria-selected="true">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                          class="bi bi-list mb-2 mt-1" viewBox="0 0 16 16">
@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="pending-ads-tab" href="{{ route('admin.advertisement.expected') }}" role="tab"
+                <a class="nav-link" id="pending-ads-tab" href="{{ route('admin.advertisements.expected') }}" role="tab"
                    aria-controls="pending-ads" aria-selected="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                          class="bi bi-bell mb-2 mt-1" viewBox="0 0 16 16">
@@ -33,8 +33,8 @@
         <div class="row justify-content-center">
             @foreach($advertisements as $advertisement)
                 @include('components.advertisements.advertisements', ['advertisement' => $advertisement, 'routeLink' => 'admin.advertisements.show'])
-                @include('components/rejectModal')
-                @include('components/approveModal')
+                @include('components.modals.rejectModal')
+                @include('components.modals.approveModal')
             @endforeach
             <div>
                 {{ $advertisements->withQueryString()->links() }}
@@ -44,20 +44,18 @@
 
     <script src="{{ asset('assets/js/clearFilter.js') }}"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.addEventListener('click', function (event) {
-                const target = event.target;
+        document.addEventListener('click', function (event) {
+            const target = event.target;
 
-                if (target.classList.contains('btn_delete')) {
-                    const confirmed = confirm('Вы уверены, что хотите удалить это объявление?');
-                    if (confirmed) {
-                        const form = target.closest('form');
-                        if (form) {
-                            form.submit();
-                        }
+            if (target.classList.contains('btn_delete')) {
+                const confirmed = confirm('Вы уверены, что хотите удалить это объявление?');
+                if (confirmed) {
+                    const form = target.closest('form');
+                    if (form) {
+                        form.submit();
                     }
                 }
-            });
+            }
         });
     </script>
     <script src="{{ asset('assets/js/updateDistricts.js')  }}"></script>

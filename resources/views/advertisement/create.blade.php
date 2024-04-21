@@ -173,65 +173,9 @@
     </div>
 
     <script>
-        let citySelect = document.getElementById("city_id");
-        let districtSelect = document.getElementById("district_id");
-        let districtsByCity = {!! json_encode($districts) !!};
-        let selectedDistrictId = localStorage.getItem('selectedDistrictId');
-
-        function updateDistricts(cityId, selectedDistrictId) {
-            districtSelect.innerHTML = '';
-
-            let firstOption = null;
-
-            districtsByCity.forEach(function (district) {
-                if (district.city_id == cityId) {
-                    let option = document.createElement("option");
-                    option.value = district.id;
-                    option.textContent = district.name;
-
-                    if (firstOption === null) {
-                        firstOption = option;
-                    }
-
-                    if (district.id == selectedDistrictId) {
-                        option.selected = true;
-                    }
-                    districtSelect.appendChild(option);
-                }
-            });
-
-            if (districtSelect.selectedIndex === -1 && firstOption) {
-                firstOption.selected = true;
-            }
-        }
-
-        updateDistricts(citySelect.value, selectedDistrictId);
-
-        districtSelect.addEventListener('change', function () {
-            localStorage.setItem('selectedDistrictId', this.value)
-        });
-
-
-        citySelect.addEventListener("change", function () {
-            let cityId = this.value;
-            updateDistricts(cityId, null);
-        });
-
-        let typeObject = document.getElementById('type_object');
-        let floor = document.getElementById('floor');
-        let balcony = document.getElementById('balcony');
-
-        typeObject.addEventListener('change', () => {
-            if (typeObject.value === 'Дом') {
-                floor.disabled = true;
-                balcony.disabled = true;
-
-                floor.value = '';
-            } else {
-                floor.disabled = false;
-                balcony.disabled = false;
-            }
-        });
-
+        window.districtsByCity = {!! json_encode($districts) !!};
+        window.selectedDistrictId = localStorage.getItem('selectedDistrictId');
     </script>
+
+    <script src="{{ asset('assets/js/createUpdateDistricts.js') }}"></script>
 @endsection

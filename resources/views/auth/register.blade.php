@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="register">
-        <form class="custom-form" action="{{ route('register') }}" method="post" enctype="multipart/form-data" novalidate>
+        <form class="custom-form1" action="{{ route('register') }}" method="post" enctype="multipart/form-data" novalidate>
             @csrf
             <h3>Регистрация</h3>
             <div class="form-group mb-2">

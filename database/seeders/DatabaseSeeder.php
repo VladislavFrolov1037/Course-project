@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
             StatusSeeder::class,
             AdvertisementSeeder::class,
             ReviewSeeder::class,
-            ImageSeeder::class
+            ImageSeeder::class,
+            ConsultationSeeder::class,
+            FeedbackRequestSeeder::class,
         ]);
     }
 }

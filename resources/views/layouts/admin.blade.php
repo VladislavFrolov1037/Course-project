@@ -59,7 +59,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('review.index') }}">Отзывы</a>
                         </li>
                         {{--                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.consultation.index') }}">Консультации</a>--}}
-                        {{--                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.meeting.index') }}">Встречи</a>--}}
+                        {{--                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.consultation.index') }}">Встречи</a>--}}
                         {{--                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.feedback.index') }}">Идеи</a>--}}
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
@@ -84,7 +84,8 @@
     @yield('content')
 </main>
 <footer>
-
 </footer>
+
+<script src="{{ asset('assets/js/sendForm.js') }}"></script>
 </body>
 </html>

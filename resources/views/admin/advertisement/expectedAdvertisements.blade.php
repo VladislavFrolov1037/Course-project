@@ -3,7 +3,7 @@
     <div class="container mb-5">
         <ul class="nav nav-tabs" id="advertisementTabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link" id="all-ads-tab" href="{{ route('admin.advertisement.index') }}" role="tab"
+                <a class="nav-link" id="all-ads-tab" href="{{ route('admin.advertisements.index') }}" role="tab"
                    aria-controls="all-ads" aria-selected="true">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                          class="bi bi-list mb-2 mt-1" viewBox="0 0 16 16">
@@ -14,7 +14,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" id="pending-ads-tab" href="{{ route('admin.advertisement.expected') }}"
+                <a class="nav-link active" id="pending-ads-tab" href="{{ route('admin.advertisements.expected') }}"
                    role="tab" aria-controls="pending-ads" aria-selected="false">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                          class="bi bi-bell mb-2 mt-1" viewBox="0 0 16 16">
@@ -31,8 +31,8 @@
         <div class="row justify-content-center">
             @foreach($advertisements as $advertisement)
                 @include('components.advertisements.advertisements', ['routeLink' => 'admin.advertisements.show', 'advertisement' => $advertisement])
-                @include('components/rejectModal')
-                @include('components/approveModal')
+                @include('components.modals.rejectModal')
+                @include('components.modals.approveModal')
             @endforeach
             <div>
                 {{ $advertisements->withQueryString()->links() }}

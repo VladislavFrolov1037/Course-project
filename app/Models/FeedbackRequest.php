@@ -13,4 +13,9 @@ class FeedbackRequest extends Model
         'email',
         'message'
     ];
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }
