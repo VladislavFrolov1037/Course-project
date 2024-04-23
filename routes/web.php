@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\Admin\AdminAdvertisementController;
-use App\Http\Controllers\Admin\AdminFeedbacksController;
 use App\Http\Controllers\Admin\AdminConsultationController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminFeedbacksController;
 use App\Http\Controllers\Admin\AdminMeetingController;
 use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminUserController;
@@ -15,6 +15,7 @@ use App\Http\Controllers\ConsultationController;
 use App\Http\Controllers\FavouriteController;
 use App\Http\Controllers\FeedbackRequestController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
@@ -76,6 +77,18 @@ Route::prefix('user')->controller(UserAccountController::class)->middleware('aut
     Route::get('/reviews', 'getUserReviews')->name('user.reviews');
 });
 
+Route::prefix('meetings')->controller(MeetingController::class)->as('meetings.')->group(function () {
+    Route::post('/', 'store')->name('store');
+});
+
+Route::prefix('feedback')->controller(FeedbackRequestController::class)->as('feedback.')->group(function () {
+    Route::post('/', 'store')->name('store');
+});
+
+Route::prefix('consultations')->controller(ConsultationController::class)->as('consultation.')->group(function () {
+    Route::post('/', 'store')->name('store');
+});
+
 Route::prefix('admin')->middleware('admin')->as('admin.')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
 
@@ -120,14 +133,6 @@ Route::prefix('admin')->middleware('admin')->as('admin.')->group(function () {
 
     Route::prefix('meetings')->controller(AdminMeetingController::class)->as('meetings.')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::patch('/{meeting}/status', 'changeStatus')->name('changeStatus');
     });
-});
-
-
-Route::prefix('feedback')->controller(FeedbackRequestController::class)->as('feedback.')->group(function () {
-    Route::post('/', 'store')->name('store');
-});
-
-Route::prefix('consultations')->controller(ConsultationController::class)->as('consultation.')->group(function () {
-    Route::post('/', 'store')->name('store');
 });

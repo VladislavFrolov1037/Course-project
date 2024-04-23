@@ -21,6 +21,26 @@
         </div>
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let successMessage = {!! json_encode(session('success_message')) !!};
+            if (successMessage) {
+                showSuccessModal();
+            }
+
+            let errors = {!! json_encode($errors->toArray()) !!};
+            if (errors.name || errors.email || errors.phone || errors.date || errors.time) {
+                let modal = new bootstrap.Modal(document.getElementById('meetingModal'));
+                modal.show();
+            }
+
+            function showSuccessModal() {
+                let modal = new bootstrap.Modal(document.getElementById('successModal'));
+                modal.show();
+            }
+        });
+    </script>
+
 @endsection
 
 

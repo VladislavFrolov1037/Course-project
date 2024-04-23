@@ -19,7 +19,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->foreignId('advertisement_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('status_id')->constrained();
+            $table->foreignId('status_id')->default(1)->constrained();
         });
     }
 

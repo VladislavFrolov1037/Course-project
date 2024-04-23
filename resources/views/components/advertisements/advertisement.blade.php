@@ -74,7 +74,7 @@
         </div>
     </div>
     <div class="row no-gutters mt-2">
-        <div class="col-md-6">
+        <div class="col-md-7">
             <div class="info-object">
                 <div class="description">
                     <h3>Параметры</h3>
@@ -161,7 +161,97 @@
                                     </button>
                                 @endif
                                 @if(!request()->is('admin/*'))
+                                    <div class="modal fade" id="meetingModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Запланировать
+                                                        встречу</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <form id="form" action="{{ route('meetings.store') }}" method="post">
+                                                    @csrf
+                                                    <input type="hidden" name="advertisement_id"
+                                                           value="{{ $advertisement->id }}">
+                                                    <div class="modal-body">
+                                                        <label for="name">Имя</label>
+                                                        <input value="{{ old('name') }}" type="text"
+                                                               class="form-control" name="name" id="name">
+                                                        @error('name')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+
+                                                        <label for="email">Почта</label>
+                                                        <input value="{{ old('email') }}" type="email"
+                                                               class="form-control" name="email"
+                                                               id="email">
+                                                        @error('email')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+
+                                                        <label for="phone">Телефон</label>
+                                                        <input value="{{ old('phone') }}" type="tel"
+                                                               class="form-control" name="phone" id="phone">
+                                                        @error('phone')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+
+                                                        <label for="date">Дата</label>
+                                                        <input value="{{ old('date') }}" type="date"
+                                                               class="form-control" name="date" id="date"
+                                                               min="{{ now()->format('Y-m-d') }}">
+                                                        @error('date')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+
+                                                        <label for="time">Время</label>
+                                                        <input value="{{ old('time') }}" type="time"
+                                                               class="form-control" name="time" id="time">
+                                                        @error('time')
+                                                        <p class="text-danger">{{ $message }}</p>
+                                                        @enderror
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Закрыть
+                                                        </button>
+                                                        <button type="submit" class="btn btn-primary">Запланировать
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal fade" id="successModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Форма отправлена
+                                                        успешно!</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Ваше заявка о встрече будет рассмотрена, после чего вам придет
+                                                    сообщение на почту с состоянием встречи.
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Закрыть
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     @include('components.modals.favouriteButton')
+                                    <button type="button" style="margin-left: 4px" class="btn btn-secondary"
+                                            data-bs-toggle="modal" data-bs-target="#meetingModal">Запланировать встречу
+                                    </button>
                                 @endif
                             </div>
                         </li>
@@ -169,7 +259,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
             <div class="info-object">
                 <div class="description">
                     <h3>Местоположение</h3>
