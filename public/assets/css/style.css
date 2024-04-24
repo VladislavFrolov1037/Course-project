@@ -90,10 +90,19 @@ footer {
     border: 1px solid #ccc;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
-    height: 550px !important;
+    height: 515px !important;
 }
 
-.product-card form {
+.product-card-admin {
+        width: 80%;
+        margin-left: 10%;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+        height: 550px !important;
+}
+
+.product-card form, .product-card-admin form {
     margin-top: auto;
 }
 

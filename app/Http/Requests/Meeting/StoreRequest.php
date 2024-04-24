@@ -23,9 +23,9 @@ class StoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:meetings'],
-            'phone' => ['required', 'string', 'unique:meetings', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
-            'date' => ['required', 'date'],
+            'email' => ['required', 'email'],
+            'phone' => ['required', 'string', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
+            'date' => ['required', 'date', 'after:today', 'before_or_equal:' . date('Y-m-d', strtotime('+1 year'))],
             'time' => ['required', 'date_format:H:i'],
             'advertisement_id' => ['required'],
         ];

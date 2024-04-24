@@ -31,8 +31,8 @@
                             Каталог
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="catalogDropdown">
-                            <li><a class="dropdown-item" href="{{ route('advertisement.index') }}">Объявления</a></li>
-                            <li><a class="dropdown-item" href="{{ route('review.index') }}">Отзывы</a></li>
+                            <li><a class="dropdown-item" href="{{ route('advertisements.index') }}">Объявления</a></li>
+                            <li><a class="dropdown-item" href="{{ route('reviews.index') }}">Отзывы</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -54,7 +54,7 @@
                 <div class="navbar-nav ml-auto personalAcc">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('favourite') }}">Избранное</a>
+                            <a class="nav-link" href="{{ route('favourites') }}">Избранное</a>
                         </li>
                         @auth
                             <li class="nav-item dropdown">
@@ -67,11 +67,11 @@
                                         <li><a class="dropdown-item" href="{{ route('admin.index') }}">Админ панель</a>
                                         </li>
                                     @endcan
-                                    <li><a class="dropdown-item" href="{{ route('user.index') }}">Личный кабинет</a>
+                                    <li><a class="dropdown-item" href="{{ route('users.index') }}">Личный кабинет</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="{{ route('user.advertisements') }}">Мои
+                                    <li><a class="dropdown-item" href="{{ route('users.advertisements') }}">Мои
                                             объявления</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('user.reviews') }}">Мои отзывы</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('users.reviews') }}">Мои отзывы</a></li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
                                 </ul>
                             </li>
@@ -90,38 +90,15 @@
 <footer class="text-white text-center py-3">
     <div class="container">
         <div class="row">
-            <div class="col-sm">
-                <div class="company">
-                    ООО "Недвижимость Мгн"
-                    <p>ИНН 583925718020</p>
-                </div>
-                <div class="social">
-                    <a class="nav-link" href=""><img src="" alt="">1</a>
-                    <a class="nav-link" href=""><img src="" alt="">2</a>
-                    <a class="nav-link" href=""><img src="" alt="">3</a>
-                    <a class="nav-link" href=""><img src="" alt="">4</a>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="contacts">
-                    <h5>г. Магнитогорск</h5>
-                    <a class="nav-link"><img src="" alt=""> +788005553535</a>
-                    <a class="nav-link"><img src="" alt=""> +788005553535</a>
-                    <p class="placement"><img src="" alt=""> г. Магнитогорск, Россия, <br> улица Грязнова ...</p>
-                </div>
-            </div>
-            <div class="col-sm">
-                <div class="timeOfWork">
-                    Время работы:
-                    <p><img src="" alt=""> Пн-Пт: 09:00 - 17:00</p>
-                    <p><img src="" alt=""> Сб: 09:00 - 13:00</p>
-                    <p><img src="" alt=""> info@bk.ru</p>
-                </div>
+            <div class="col">
+                <p>© {{ date('Y') }} ООО "Недвижимость Мгн". Все права защищены.</p>
             </div>
         </div>
     </div>
 </footer>
 
+
+<script src="{{ asset('assets/js/sendForm.js') }}"></script>
 </body>
 
 </html>

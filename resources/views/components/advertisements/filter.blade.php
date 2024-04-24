@@ -12,10 +12,10 @@
                                 value="any">Любой
                             </option>
                         @endif
-                            @foreach($typeObjects as $typeObject)
-                                <option
-                                    value="{{ $typeObject }}" {{ request()->input('type_object') == $typeObject ? 'selected' : '' }}>{{ $typeObject }}</option>
-                            @endforeach
+                        @foreach($typeObjects as $typeObject)
+                            <option
+                                value="{{ $typeObject }}" {{ request()->input('type_object') == $typeObject ? 'selected' : '' }}>{{ $typeObject }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-1">
@@ -120,10 +120,10 @@
                                 Любой
                             </option>
                         @endif
-                            @foreach($rentalTimes as $rentalTime)
-                                <option
-                                    value="{{ $rentalTime }}" {{ request()->input('rental_time') == $rentalTime ? 'selected' : '' }}>{{ $rentalTime }}</option>
-                            @endforeach
+                        @foreach($rentalTimes as $rentalTime)
+                            <option
+                                value="{{ $rentalTime }}" {{ request()->input('rental_time') == $rentalTime ? 'selected' : '' }}>{{ $rentalTime }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -147,10 +147,12 @@
                         <label for="rental_time">Статус</label>
                         <select class="form-select" name="status_id" id="status_id">
                             @foreach($statuses as $status)
-                                <option
-                                    value="{{ $status->id }}" {{ request()->input('status_id') == $status->id ? 'selected' : '' }}>
-                                    {{ $status->name }}
-                                </option>
+                                @if($status->id != 4)
+                                    <option
+                                        value="{{ $status->id }}" {{ request()->input('status_id') == $status->id ? 'selected' : '' }}>
+                                        {{ $status->name }}
+                                    </option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -173,3 +175,25 @@
         </form>
     </div>
 </div>
+
+<script>
+    const typeObject = document.getElementById('type_object');
+    let floor = document.getElementById('floor');
+    let balcony = document.getElementById('balcony');
+
+    typeObject.addEventListener('change', () => {
+        changeTypeObject(typeObject.value);
+    });
+
+    function changeTypeObject(typeObject) {
+        if (typeObject === 'Дом') {
+            floor.disabled = true;
+            balcony.disabled = true;
+        } else {
+            floor.disabled = false;
+            balcony.disabled = false;
+        }
+    }
+
+    changeTypeObject(typeObject.value)
+</script>

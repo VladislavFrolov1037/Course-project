@@ -3,8 +3,8 @@
 
     <div class="infoPage">
         <div class="path">
-            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - Каталог - <a
-                    href="{{ route('advertisement.index') }}">Объявления - </a> <span>г.{{ $advertisement->address->district->city->name }}, улица {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}</span></span>
+            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - <a
+                    href="{{ route('advertisements.index') }}">Объявления - </a> <span>г.{{ $advertisement->address->district->city->name }}, улица {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}</span></span>
             </p>
         </div>
         <div class="info">
@@ -17,6 +17,7 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 @include('components.advertisements.advertisement', ['advertisement' => $advertisement, 'images' => $images])
+                @include('components.modals.deleteModal', ['id' => $advertisement->id, 'bodyText' => 'Вы действительно хотите удалить объявление?', 'actionUrl' => 'advertisements.delete'])
             </div>
         </div>
     </div>

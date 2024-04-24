@@ -126,7 +126,7 @@
                             <div class="d-flex">
                                 @if (request()->is('admin/*'))
                                     @if ($advertisement->status_id !== 1)
-                                        <form action="{{ route('advertisement.delete', $advertisement->id) }}"
+                                        <form action="{{ route('advertisements.delete', $advertisement->id) }}"
                                               method="post">
                                             @csrf
                                             @method('delete')
@@ -153,7 +153,6 @@
                                         </div>
                                     @endif
                                 @elseif ($advertisement->user == auth()->user())
-                                    @include('components.modals.deleteModal')
                                     <button name="action" type="button" class="btn btn-danger btn-delete"
                                             data-action="delete" data-bs-toggle="modal"
                                             data-bs-target="#delete{{$advertisement->id}}" style="margin-right: 10px;">
@@ -249,9 +248,13 @@
                                     </div>
 
                                     @include('components.modals.favouriteButton')
-                                    <button type="button" style="margin-left: 4px" class="btn btn-secondary"
-                                            data-bs-toggle="modal" data-bs-target="#meetingModal">Запланировать встречу
-                                    </button>
+
+                                    @if (auth()->id() != $advertisement->user_id)
+                                        <button type="button" style="margin-left: 4px" class="btn btn-secondary"
+                                                data-bs-toggle="modal" data-bs-target="#meetingModal">Запланировать
+                                            встречу
+                                        </button>
+                                    @endif
                                 @endif
                             </div>
                         </li>
@@ -282,3 +285,4 @@
         </div>
     </div>
 </div>
+@include('components.modals.deleteModal', ['id' => $advertisement->id, 'bodyText' => 'Вы действительно хотите удалить объявление?', 'actionUrl' => route('advertisements.delete', $advertisement->id) ])

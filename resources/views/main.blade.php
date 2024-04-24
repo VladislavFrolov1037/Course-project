@@ -11,8 +11,8 @@
                     </button>
                 </div>
                 <div class="main__under mt-5 mb-5 col-md">
-                    <a href="{{ route('advertisement.create') }}">Сдать в аренду</a>
-                    <a href="{{ route('advertisement.index') }}">Снять недвижимость</a>
+                    <a href="{{ route('advertisements.create') }}">Сдать в аренду</a>
+                    <a href="{{ route('advertisements.index') }}">Снять недвижимость</a>
                 </div>
             </div>
         </div>
@@ -21,44 +21,9 @@
         <div class="row justify-content-center">
             <h2 class="text-center">Последняя добавленая недвижимость</h2>
             @foreach($advertisements as $advertisement)
-                <div class="col-md-4 mt-3">
-                    <a href="{{ route('advertisement.show', $advertisement->id) }}" class="product-link">
-                        <div class="main-product-card card product-card">
-                            <img
-                                src="{{ asset('storage/' . $advertisement->images->first()->url) }}"
-                                class="card-img-top product-image" alt="Product Image">
-                            <div class="card-body product-details">
-                                <h4 class="card-title">г.{{ $advertisement->address->district->city->name }},<br>
-                                    ул. {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}
-                                </h4>
-                                <ul class="product-info">
-                                    <li><img width="12" height="12" src="{{{ asset('assets/images/square.svg') }}}"
-                                             alt=""><strong> Площадь: </strong>
-                                        <span>{{ $advertisement->square }}</span>
-                                    </li>
-                                    <li><img width="12" height="12" src="{{{ asset('assets/images/square.svg') }}}"
-                                             alt=""><strong> Количество комнат: </strong>
-                                        <span>{{ $advertisement->num_rooms }}</span></li>
-                                    <li><img width="12" height="12" src="{{{ asset('assets/images/floor.svg') }}}"
-                                             alt=""><strong> Этаж: </strong>
-                                        <span>{{ $advertisement->floor }}/{{ $advertisement->num_floors }}</span>
-                                    </li>
-                                    <li><img width="12" height="12" src="{{{ asset('assets/images/price.svg') }}}"
-                                             alt=""><strong> Стоимость: </strong>
-                                        <span>{{ $advertisement->price }}р.</span>
-                                    </li>
-                                    <li><img width="14" height="14" style="fill: blue"
-                                             src="{{{ asset('assets/images/views.svg') }}}"
-                                             alt=""><strong> Просмотрено: </strong>
-                                        <span>{{ $advertisement->views }} </span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                @include('components.advertisements.advertisements', ['routeLink' => 'advertisements.show'])
             @endforeach
-            <a href="{{ route('advertisement.index') }}" class="btn btn-primary w-25 mt-3">Полный каталог
+            <a href="{{ route('advertisements.index') }}" class="btn btn-primary w-25 mt-3">Полный каталог
                 недвижимости</a>
         </div>
     </div>
@@ -93,44 +58,9 @@
             <h2 class="text-center">Самые популярные предложения <img src="{{ asset('assets/images/fire.svg') }}"
                                                                       alt=""></h2>
             @foreach($popularAdvertisements as $advertisement)
-                <div class="col-md-4 mt-3">
-                    <a href="{{ route('advertisement.show', $advertisement->id) }}" class="product-link">
-                        <div class="main-product-card card product-card">
-                            <img
-                                src="{{ asset('storage/' . $advertisement->images->first()->url) }}"
-                                class="card-img-top product-image" alt="Product Image">
-                            <div class="card-body product-details">
-                                <h4 class="card-title">г.{{ $advertisement->address->district->city->name }},<br>
-                                    ул. {{ $advertisement->address->address }} {{ $advertisement->address->house_number }}
-                                </h4>
-                                <ul class="product-info">
-                                    <li><img width="12" height="12" src="{{{ asset('assets/images/square.svg') }}}"
-                                             alt=""><strong> Площадь: </strong>
-                                        <span>{{ $advertisement->square }}</span>
-                                    </li>
-                                    <li><img width="12" height="12" src="{{{ asset('assets/images/square.svg') }}}"
-                                             alt=""><strong> Количество комнат: </strong>
-                                        <span>{{ $advertisement->num_rooms }}</span></li>
-                                    <li><img width="12" height="12" src="{{{ asset('assets/images/floor.svg') }}}"
-                                             alt=""><strong> Этаж: </strong>
-                                        <span>{{ $advertisement->floor }}/{{ $advertisement->num_floors }}</span>
-                                    </li>
-                                    <li><img width="12" height="12" src="{{{ asset('assets/images/price.svg') }}}"
-                                             alt=""><strong> Стоимость: </strong>
-                                        <span>{{ $advertisement->price }}р.</span>
-                                    </li>
-                                    <li><img width="14" height="14" style="fill: blue"
-                                             src="{{{ asset('assets/images/views.svg') }}}"
-                                             alt=""><strong> Просмотрено: </strong>
-                                        <span>{{ $advertisement->views }} </span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                @include('components.advertisements.advertisements', ['routeLink' => 'advertisements.show'])
             @endforeach
-            <a href="{{ route('advertisement.index') }}" class="btn btn-primary w-25 mt-3">Полный каталог
+            <a href="{{ route('advertisements.index') }}" class="btn btn-primary w-25 mt-3">Полный каталог
                 недвижимости</a>
         </div>
     </div>
@@ -154,7 +84,7 @@
     </div>
 
     <div class="container reviews">
-        <h2 class="text-center mb-4"><a class="link" href="{{ route('review.index') }}">Отзывы о компании <img
+        <h2 class="text-center mb-4"><a class="link" href="{{ route('reviews.index') }}">Отзывы о компании <img
                     src="{{ asset('assets/images/arrow.svg') }}" alt=""></a></h2>
         <div class="row">
             @foreach($reviews as $review)
@@ -177,35 +107,25 @@
         </div>
     </div>
 
-    <div class="text-center mb-5">
-        <h3>Мы на карте</h3>
-        <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2827.9690333759527!2d58.976986331117644!3d53.41430710269115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x43d12f3bca277085%3A0x40d07ea619d9b559!2z0JzQuNGAINC40L3RgdGC0YDRg9C80LXQvdGC0LA!5e0!3m2!1sru!2sru!4v1694938305828!5m2!1sru!2sru"
-            width="1200" height="450" style="border:0;"
-            allowfullscreen="" loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-
     <a id="feedback-form" class="feedback-form" name="feedback-form"></a>
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <div class="custom-form-container" id="form">
                     <h2 class="custom-form-title">Поделитесь идеями для улучшения нашей компании</h2>
-                    <form action="{{ route('feedback.store') }}" method="POST">
+                    <form action="{{ route('feedbacks.store') }}" class="custom-form" method="POST">
                         @csrf
                         <input type="email" class="custom-input" id="email" name="email" placeholder="Ваш Email"
-                               value="{{ old('email') }}" required>
+                               value="{{ old('email') }}">
                         @error('email', 'feedback')
                         <p class="text-danger">{{ $message }}</p>
                         @enderror
                         <textarea class="custom-input" id="message" name="message" rows="4" placeholder="Ваша идея"
-                                  required>{{ old('message') }}</textarea>
+                        >{{ old('message') }}</textarea>
                         @error('message', 'feedback')
                         <p class="text-danger">{{ $message }}</p>
                         @enderror
-                        <button type="submit" class="custom-button">Отправить</button>
+                        <button type="submit" class="custom-button sendForm">Отправить</button>
                     </form>
                 </div>
             </div>
@@ -219,7 +139,8 @@
                     <h5 class="modal-title" id="exampleModalLabel">Заказать консультацию</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
-                <form action="{{ route('consultation.store') }}" id="consultation-form" method="post">
+                <form action="{{ route('consultations.store') }}" id="consultation-form" class="custom-form"
+                      method="post">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
@@ -247,7 +168,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                        <button type="submit" class="btn btn-primary">Отправить</button>
+                        <button type="submit" class="btn btn-primary sendForm">Отправить</button>
                     </div>
                 </form>
             </div>

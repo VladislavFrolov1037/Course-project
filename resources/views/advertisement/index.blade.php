@@ -18,7 +18,7 @@
         <div class="comments">
             <div class="row justify-content-center advertisements">
                 @foreach($advertisements as $advertisement)
-                    @include('components.advertisements.advertisements', ['advertisement' => $advertisement, 'routeLink' => 'advertisement.show'])
+                    @include('components.advertisements.advertisements', ['advertisement' => $advertisement, 'routeLink' => 'advertisements.show'])
                 @endforeach
             </div>
             <div>

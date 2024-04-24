@@ -6,7 +6,6 @@ use App\Http\Requests\Review\StoreRequest;
 use App\Models\Review;
 use App\Services\ReviewService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class ReviewController extends Controller
 {
@@ -45,7 +44,7 @@ class ReviewController extends Controller
 
         $this->reviewService->storeReview($data);
 
-        return redirect()->route('review.index');
+        return redirect()->route('users.reviews');
     }
 
     public function destroy(Review $review)

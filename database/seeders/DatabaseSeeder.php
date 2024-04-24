@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
             DistrictSeeder::class,
             StatusSeeder::class,
             AdvertisementSeeder::class,
-            ReviewSeeder::class,
             ImageSeeder::class,
+            ReviewSeeder::class,
             ConsultationSeeder::class,
             FeedbackRequestSeeder::class,
         ]);

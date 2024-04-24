@@ -27,8 +27,8 @@ class StoreRequest extends FormRequest
     {
         $rules = [
             'name' => ['required', 'string', 'min:4'],
-            'consultation_email' => ['required', 'email', 'unique:consultations,email'],
-            'phone' => ['required', 'string', 'unique:consultations', 'regex:/^(\+7|8)\d{10}$/']
+            'consultation_email' => ['required', 'email'],
+            'phone' => ['required', 'string', 'regex:/^(\+7|8)\d{10}$/']
         ];
 
         if (isset($rules['consultation_email'])) {

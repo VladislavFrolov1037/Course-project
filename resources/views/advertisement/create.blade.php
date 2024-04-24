@@ -2,16 +2,16 @@
 @section('content')
     <div class="infoPage">
         <div class="path">
-            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - Личный кабинет - <span>Создать объявление</span>
+            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - <a href="{{ route('users.index') }}">Личный кабинет</a> - <span>Создать объявление</span>
             </p>
         </div>
         <div class="info">
             <h1>Новое объявление</h1>
-            <p>Создав новое объявление его проверит наш администартор, после чего одобрит его либо отклонит</p>
+            <p>Создав новое объявление его проверит наш администартор, после чего одобрит либо отклонит</p>
         </div>
     </div>
     <div class="insertCreateForm">
-        <form class="custom-form" action="{{ route('advertisement.store') }}" method="post"
+        <form class="custom-form custom-form1" action="{{ route('advertisements.store') }}" method="post"
               enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
@@ -168,7 +168,7 @@
                     @enderror
                     @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Отправить на рассмотрение</button>
+            <button type="submit" class="btn btn-primary sendForm">Отправить на рассмотрение</button>
         </form>
     </div>
 

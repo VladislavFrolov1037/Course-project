@@ -39,7 +39,7 @@ class AdvertisementController extends Controller
 
         $this->advertisementService->store($data);
 
-        return redirect()->route('user.index');
+        return redirect()->route('users.index');
     }
 
     public function show(Advertisement $advertisement)
@@ -65,6 +65,6 @@ class AdvertisementController extends Controller
             }
             return redirect()->route('admin.advertisements.index');
         }
-        return redirect()->route('user.advertisements');
+        return redirect()->route('users.advertisements');
     }
 }

@@ -32,7 +32,8 @@
             </div>
             <button type="submit" class="btn btn-primary w-100 mt-3">Авторизоваться</button>
             <small>
-                <a href="{{ route('register') }}">Нет аккаунта?</a>
+                <a href="{{ route('editPassword') }}">Забыли пароль?</a>
+                <a href="{{ route('register') }}" style="margin-left: 10px;">Нет аккаунта?</a>
             </small>
         </form>
     </div>

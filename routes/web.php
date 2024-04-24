@@ -35,12 +35,12 @@ Route::get('/', [MainController::class, 'index'])->name('main');
 Route::get('/aboutUs', [AboutUsController::class, 'index'])->name('aboutUs');
 
 Route::prefix('favourites')->controller(FavouriteController::class)->group(function () {
-    Route::get('/', 'index')->name('favourite');
-    Route::post('/{advertisement}', 'store')->name('favourite.store');
-    Route::delete('/{advertisement}', 'destroy')->name('favourite.destroy');
+    Route::get('/', 'index')->name('favourites');
+    Route::post('/{advertisement}', 'store')->name('favourites.store');
+    Route::delete('/{advertisement}', 'destroy')->name('favourites.destroy');
 });
 
-Route::group(['prefix' => 'reviews', 'controller' => 'ReviewController', 'as' => 'review.'], function () {
+Route::group(['prefix' => 'reviews', 'controller' => 'ReviewController', 'as' => 'reviews.'], function () {
     Route::get('/', 'index')->name('index');
 
     Route::group(['middleware' => 'auth'], function () {
@@ -50,7 +50,7 @@ Route::group(['prefix' => 'reviews', 'controller' => 'ReviewController', 'as' =>
     });
 });
 
-Route::prefix('advertisements')->controller(AdvertisementController::class)->as('advertisement.')->group(function () {
+Route::prefix('advertisements')->controller(AdvertisementController::class)->as('advertisements.')->group(function () {
     Route::get('/create', 'create')->middleware('auth')->name('create');
     Route::get('/', 'index')->name('index');
     Route::post('/', 'store')->middleware('auth')->name('store');
@@ -65,27 +65,30 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisterController::class, 'store']);
     Route::get('/login', [LoginController::class, 'loginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
+
+    Route::get('/reset', [RegisterController::class, 'editPassword'])->name('editPassword');
+    Route::patch('/reset', [RegisterController::class, 'reset'])->name('reset');
 });
 
 Route::get('/logout', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
 
-Route::prefix('user')->controller(UserAccountController::class)->middleware('auth')->group(function () {
-    Route::get('', 'index')->name('user.index');
-    Route::get('/profile', 'editProfile')->name('user.edit');
-    Route::patch('/profile/{user}', 'updateProfile')->name('user.update');
-    Route::get('/advertisements', 'getUserAdvertisements')->name('user.advertisements');
-    Route::get('/reviews', 'getUserReviews')->name('user.reviews');
+Route::prefix('user')->controller(UserAccountController::class)->as('users.')->middleware('auth')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/profile', 'editProfile')->name('edit');
+    Route::patch('/profile/{user}', 'updateProfile')->name('update');
+    Route::get('/advertisements', 'getUserAdvertisements')->name('advertisements');
+    Route::get('/reviews', 'getUserReviews')->name('reviews');
 });
 
 Route::prefix('meetings')->controller(MeetingController::class)->as('meetings.')->group(function () {
     Route::post('/', 'store')->name('store');
 });
 
-Route::prefix('feedback')->controller(FeedbackRequestController::class)->as('feedback.')->group(function () {
+Route::prefix('feedback')->controller(FeedbackRequestController::class)->as('feedbacks.')->group(function () {
     Route::post('/', 'store')->name('store');
 });
 
-Route::prefix('consultations')->controller(ConsultationController::class)->as('consultation.')->group(function () {
+Route::prefix('consultations')->controller(ConsultationController::class)->as('consultations.')->group(function () {
     Route::post('/', 'store')->name('store');
 });
 

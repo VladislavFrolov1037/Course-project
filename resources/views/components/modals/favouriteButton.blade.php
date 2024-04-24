@@ -1,12 +1,12 @@
 @if(!$advertisement->isInFavourites())
-    <form action="{{ route('favourite.store', $advertisement->id) }}"
+    <form action="{{ route('favourites.store', $advertisement->id) }}"
           method="post">
         @csrf
         <button type="submit" class="btn btn-primary">Добавить в избранное
         </button>
     </form>
 @else
-    <form action="{{ route('favourite.destroy', $advertisement->id) }}"
+    <form action="{{ route('favourites.destroy', $advertisement->id) }}"
           method="post">
         @csrf
         @method('delete')

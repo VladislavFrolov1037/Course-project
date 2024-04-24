@@ -2,7 +2,7 @@
 @section('content')
     <div class="infoPage">
         <div class="path">
-            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> -
+            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - <a href="{{ route('users.index') }}">Личный кабиент</a> -
                 <span>Личные данные</span>
             </p>
         </div>
@@ -13,7 +13,7 @@
 
     <div class="container shadow-lg p-3 mb-5 bg-white rounded">
         <div class="row">
-            <form action="{{ route('user.update', $user->id) }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data"
                   id="profileForm"
                   class="d-flex">
                 @csrf

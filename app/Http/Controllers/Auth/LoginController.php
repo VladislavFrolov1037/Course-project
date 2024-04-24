@@ -30,7 +30,7 @@ class LoginController extends Controller
             return redirect()->route('admin.index');
         }
 
-        return redirect()->route('user.index');
+        return redirect()->route('users.index');
     }
 
     public function destroy(Request $request)

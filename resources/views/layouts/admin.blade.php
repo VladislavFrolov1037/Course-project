@@ -52,15 +52,30 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0"></ul>
                 @auth
-                    <div class="navbar-nav ml-auto personalAcc">
-                        <li class="nav-item"><a class="nav-link"
-                                                href="{{ route('advertisement.index') }}">Объявления</a>
+                    <div class="navbar-nav personalAcc">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Каталог
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item"
+                                       href="{{ route('admin.advertisements.index') }}">Объявления</a>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ route('admin.reviews.index') }}">Отзывы</a>
+                                </li>
+                                <li></li>
+                                <a class="dropdown-item"
+                                   href="{{ route('admin.consultations.index') }}">Консультации</a>
+                                <li></li>
+                                <a class="dropdown-item"
+                                   href="{{ route('admin.meetings.index') }}">Встречи</a>
+                                <li></li>
+                                <a class="dropdown-item" href="{{ route('admin.feedbacks.index') }}">Идеи</a>
+                            </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('review.index') }}">Отзывы</a>
-                        </li>
-                        {{--                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.consultation.index') }}">Консультации</a>--}}
-                        {{--                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.consultation.index') }}">Встречи</a>--}}
-                        {{--                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.feedback.index') }}">Идеи</a>--}}
+
+
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
@@ -68,7 +83,8 @@
                                     Профиль
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="profileDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('user.index') }}">Личный кабинет</a>
+                                    <li><a class="dropdown-item" href="{{ route('users.index') }}">Личный
+                                            кабинет</a>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('logout') }}">Выйти</a></li>
                                 </ul>

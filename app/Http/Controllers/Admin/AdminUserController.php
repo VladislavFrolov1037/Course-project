@@ -38,7 +38,7 @@ class AdminUserController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('admin.users.index');
+        return back();
     }
 
     public function destroy(User $user)

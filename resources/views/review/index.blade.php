@@ -9,7 +9,7 @@
         <div class="info">
             <h1>Отзывы</h1>
             @auth
-                <a href="{{ route('review.create') }}" class="btn btn-primary mt-2 sendForm">Оставить отзыв</a>
+                <a href="{{ route('reviews.create') }}" class="btn btn-primary mt-2 sendForm">Оставить отзыв</a>
             @endauth
             @guest
                 <h4>Чтобы иметь возможность оставлять отзывы вам нужно <a
@@ -30,19 +30,7 @@
         </div>
         <div class="comments">
             @foreach($reviews as $review)
-                <div class="shadow-lg feedback">
-                    <div class="feedbacks">
-                        <h1>{{ $review->user->name }}
-                            @for($i = 1; $i <= $review->rating; $i++)
-                                <img src="{{ asset('images/star.png') }}" alt="">
-                            @endfor
-                        </h1>
-                        <div class="date mt-1">Добавлено: {{ date('d.m.Y', strtotime($review->date)) }}</div>
-                        <div class="comment">
-                            <p class="comment">{{ $review->comment }}</p>
-                        </div>
-                    </div>
-                </div>
+                @include('components.reviews')
             @endforeach
         </div>
     </div>
@@ -64,7 +52,7 @@
         sort.addEventListener('change', (e) => {
             let orderBy = e.target.options[e.target.selectedIndex].getAttribute('data-order');
 
-            axios.get('{{ route('review.index') }}', {
+            axios.get('{{ route('reviews.index') }}', {
                 params: {
                     orderBy: orderBy
                 },

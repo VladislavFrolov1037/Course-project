@@ -1,5 +1,6 @@
+@include('components.modals.deleteModal', ['id' => $advertisement->id, 'bodyText' => 'Вы действительно хотите удалить объявление?', 'actionUrl' => route('advertisements.delete', $advertisement->id) ])
 <div class="col-md-{{ $columnWidth ?? '4' }}">
-    <div class="card product-card">
+    <div class="card @if(!request()->is('admin/*')) product-card @else product-card-admin @endif">
         <a href="{{ route($routeLink, $advertisement->id) }}" class="product-link">
             <img
                 src="{{ asset('storage/' . $advertisement->images->first()->url) }}"
@@ -56,7 +57,7 @@
         <div class="mt-3" style="padding-left: 10px;">
             @if(request()->is('admin/*'))
                 @if($advertisement->status_id !== 1)
-                    <form action="{{ route('advertisement.delete', $advertisement->id) }}"
+                    <form action="{{ route('advertisements.delete', $advertisement->id) }}"
                           method="post">
                         @csrf
                         @method('delete')
@@ -67,6 +68,8 @@
                            href="{{ route('admin.advertisements.edit', $advertisement->id) }}">Редактировать</a>
                     </form>
                 @else
+                    @include('components.modals.rejectModal', ['id' => $advertisement->id, 'message' => 'Вы действительно хотите отклонить предложение?', 'actionUrl' => route('admin.advertisements.changeStatus', $advertisement->id)])
+                    @include('components.modals.approveModal', ['id' => $advertisement->id, 'message' => 'Вы действительно хотите одобрить предложение?', 'actionUrl' => route('admin.advertisements.changeStatus', $advertisement->id)])
                     <div>
                         <button name="action" type="button" class="btn btn-danger btn-reject"
                                 style="margin-right: 10px;" data-action="reject"
@@ -81,7 +84,6 @@
             @else
                 <div class="d-flex">
                     @if ($advertisement->user && auth()->user() && $advertisement->user->id === auth()->user()->id)
-                        @include('components.modals.deleteModal')
                         <button name="action" type="button" class="btn btn-danger btn-delete"
                                 data-action="delete" data-bs-toggle="modal"
                                 data-bs-target="#delete{{$advertisement->id}}"

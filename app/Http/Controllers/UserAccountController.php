@@ -54,7 +54,7 @@ class UserAccountController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('user.edit');
+        return redirect()->route('users.edit');
     }
 
     public function getUserReviews()

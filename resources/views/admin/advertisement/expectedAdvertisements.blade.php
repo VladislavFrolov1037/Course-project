@@ -31,8 +31,6 @@
         <div class="row justify-content-center">
             @foreach($advertisements as $advertisement)
                 @include('components.advertisements.advertisements', ['routeLink' => 'admin.advertisements.show', 'advertisement' => $advertisement])
-                @include('components.modals.rejectModal')
-                @include('components.modals.approveModal')
             @endforeach
             <div>
                 {{ $advertisements->withQueryString()->links() }}
