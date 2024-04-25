@@ -4,11 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Consultation;
-use App\Models\Status;
+use App\Services\StatusService;
 use Illuminate\Http\Request;
 
 class AdminConsultationController extends Controller
 {
+
+    protected StatusService $statusService;
+
+    public function __construct(StatusService $statusService)
+    {
+        $this->statusService = $statusService;
+    }
+
     public function index(Request $request)
     {
         $sort = $request->input('sort', 'id');
@@ -43,15 +51,7 @@ class AdminConsultationController extends Controller
     {
         $action = $request->input('action');
 
-        if ($action === 'reject') {
-            $consultation->status_id = 3;
-        } else if ($action === 'current') {
-            $consultation->status_id = 2;
-        } else {
-            $consultation->status_id = 4;
-        }
-
-        $consultation->save();
+        $this->statusService->changeStatus($consultation, $action);
 
         return back();
     }

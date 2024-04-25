@@ -57,14 +57,16 @@ class AdvertisementController extends Controller
 
         if (auth()->user()->isAdmin()) {
             $referer = request()->header('referer');
-            if ($referer) {
 
+            if ($referer) {
                 if (strpos($referer, (string)$advertisement->id === false)) {
                     return redirect()->to($referer);
                 }
             }
+
             return redirect()->route('admin.advertisements.index');
         }
+
         return redirect()->route('users.advertisements');
     }
 }

@@ -6,21 +6,20 @@ use App\Filters\AdminAdvertisementFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UpdateAdvertisementRequest;
 use App\Models\Advertisement;
-use App\Models\City;
-use App\Models\District;
-use App\Models\Image;
-use App\Models\RepairType;
 use App\Models\Status;
 use App\Services\AdvertisementService;
+use App\Services\StatusService;
 use Illuminate\Http\Request;
 
 class AdminAdvertisementController extends Controller
 {
     protected AdvertisementService $advertisementService;
+    protected StatusService $statusService;
 
-    public function __construct(AdvertisementService $advertisementService)
+    public function __construct(AdvertisementService $advertisementService, StatusService $statusService)
     {
         $this->advertisementService = $advertisementService;
+        $this->statusService = $statusService;
     }
 
     public function index(AdminAdvertisementFilter $request)
@@ -34,14 +33,9 @@ class AdminAdvertisementController extends Controller
 
     public function changeStatus(Request $request, Advertisement $advertisement)
     {
-        // Вынести в service
-        if ($request->input('action') === 'approve') {
-            $advertisement->status_id = 2;
-        } else {
-            $advertisement->status_id = 3;
-        }
+        $action = $request->input('action');
 
-        $advertisement->save();
+        $this->statusService->changeStatus($action, $advertisement);
 
         return back();
     }

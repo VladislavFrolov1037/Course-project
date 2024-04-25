@@ -44,16 +44,18 @@ class RegisterController extends Controller
     {
         $user = User::where('email', $request->email)->first();
 
-        $password = Str::random(8);
+        if ($user) {
+            $password = Str::random(8);
+            SendResetPassword::dispatch($user, $password);
 
-        SendResetPassword::dispatch($user, $password);
+            $hashedPassword = Hash::make($password);
+            $user->password = $hashedPassword;
 
-        $hashedPassword = Hash::make($password);
+            $user->save();
 
-        $user->password = $hashedPassword;
+            return redirect()->route('login');
+        }
 
-        $user->save();
-
-        return redirect()->route('login');
+        return redirect()->route('reset')->withErrors(['email' => 'Такой почты не существует']);
     }
 }

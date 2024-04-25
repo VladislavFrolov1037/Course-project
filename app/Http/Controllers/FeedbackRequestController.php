@@ -7,11 +7,6 @@ use App\Models\FeedbackRequest;
 
 class FeedbackRequestController extends Controller
 {
-    public function index()
-    {
-
-    }
-
     public function store(StoreRequest $request)
     {
         $data = $request->validated();

@@ -22,6 +22,7 @@ class UserAccountController extends Controller
     public function index()
     {
         $user = $this->user;
+
         $advertisements = $user->advertisements;
 
         return view('user.index', compact('user', 'advertisements'));

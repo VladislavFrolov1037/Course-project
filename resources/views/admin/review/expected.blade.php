@@ -4,16 +4,6 @@
 
 
     <div class="container">
-        <div class="sort">
-            <label style="font-size: 18px;" for="sort">Сортировать по</label>
-            <select class="form-select w-25 mb-5" id="sort">
-                <option class="sorting_btn" data-order="default" value="default">По умолчанию</option>
-                <option class="sorting_btn" data-order="rating-high-low" value="best_rating">Лучшая оценка</option>
-                <option class="sorting_btn" data-order="rating-low-high" value="worst_rating">Худшая оценка</option>
-                <option class="sorting_btn" data-order="date-old-new" value="newest_reviews">Новые отзывы</option>
-                <option class="sorting_btn" data-order="date-new-old" value="oldest_reviews">Старые отзывы</option>
-            </select>
-        </div>
         <div class="comments">
             @foreach($reviews as $review)
                 @include('components.modals.rejectModal', [

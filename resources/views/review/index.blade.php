@@ -2,8 +2,7 @@
 @section('content')
     <div class="infoPage">
         <div class="path">
-            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - О компании -
-                <span>Отзывы</span>
+            <p class="link-primary"><a href="{{ route('main') }}">Главная</a> - <span>Отзывы</span>
             </p>
         </div>
         <div class="info">

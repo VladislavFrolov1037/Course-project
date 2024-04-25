@@ -30,6 +30,7 @@ class ReviewController extends Controller
                 'pagination' => $pagination
             ]);
         }
+
         return view('review.index', compact('reviews'));
     }
 
