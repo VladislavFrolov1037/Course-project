@@ -8,8 +8,8 @@
         </div>
     </div>
 
-    @include('components.modals.approveModal')
-    @include('components.modals.rejectModal')
+    @include('components.modals.approveModal', ['id' => $advertisement->id, 'message' => 'Вы действительно хотите одобрить объявление?', 'actionUrl' => route('admin.advertisements.show', $advertisement->id)])
+    @include('components.modals.rejectModal', ['id' => $advertisement->id, 'message' => 'Вы действительно хотите отклонить объявление?', 'actionUrl' => route('admin.advertisements.show', $advertisement->id)])
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             document.addEventListener('click', function (event) {
