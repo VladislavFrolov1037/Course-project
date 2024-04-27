@@ -14,7 +14,7 @@
         <div class="comment">
             <p class="comment">{{ $review->comment }}</p>
         </div>
-        @if(auth()->user()->id == $review->user_id && request()->is('user/*'))
+        @if(auth()->user() && auth()->user()->id == $review->user_id && request()->is('user/*'))
             <form action="{{ route('reviews.delete', $review) }}" method="POST">
                 @csrf
                 @method('delete')
