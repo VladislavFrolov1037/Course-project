@@ -6,6 +6,7 @@ class StatusService
 {
     public function changeStatus($model, $action)
     {
+
         if ($action === 'reject') {
             $model->status_id = 3;
         } else if ($action === 'approve') {

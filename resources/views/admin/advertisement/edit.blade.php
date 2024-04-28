@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="insertCreateForm">
-        <form class="custom-form" action="{{ route('admin.advertisements.update', $advertisement) }}" method="post" enctype="multipart/form-data">
+        <form class="custom-form custom-form1" action="{{ route('admin.advertisements.update', $advertisement) }}" method="post" enctype="multipart/form-data">
             @csrf
             @method('patch')
             <div class="mb-3">
@@ -178,7 +178,7 @@
                     @enderror
                     @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Обновить</button>
+            <button type="submit" class="btn btn-primary sendForm">Обновить</button>
         </form>
     </div>
 

@@ -26,7 +26,6 @@ class Advertisement extends Model
         }
     }
 
-
     public function favourites()
     {
         return $this->hasMany(Favourite::class, 'advertisement_id', 'id');

@@ -26,7 +26,7 @@ class AdminAdvertisementController extends Controller
     {
         $data = $this->advertisementService->getData(true, true, true, true);
 
-        $advertisements = Advertisement::Filter($request)->paginate(9);
+        $advertisements = Advertisement::Filter($request)->orderByDesc('id')->paginate(9);
 
         return view('admin.advertisement.index', array_merge($data, ['advertisements' => $advertisements]));
     }
@@ -35,7 +35,7 @@ class AdminAdvertisementController extends Controller
     {
         $action = $request->input('action');
 
-        $this->statusService->changeStatus($action, $advertisement);
+        $this->statusService->changeStatus($advertisement, $action);
 
         return back();
     }
@@ -53,7 +53,7 @@ class AdminAdvertisementController extends Controller
 
         $status = Status::where('name', 'Ожидание')->first();
 
-        $advertisements = $status->advertisements()->paginate(9);
+        $advertisements = $status->advertisements()->orderByDesc('id')->paginate(9);
 
         return view('admin.advertisement.expectedAdvertisements', array_merge($data, ['advertisements' => $advertisements,
             'status' => $status]));
