@@ -6,7 +6,6 @@ use App\Models\Advertisement;
 
 class FavouriteService
 {
-
     public function getFavouriteAdvertisements($user)
     {
         $advertisements = [];
@@ -15,7 +14,7 @@ class FavouriteService
             $advertisements = Advertisement::whereIn('id', $user->favourites->pluck('advertisement_id'))->get();
         } else {
             $favourites = session()->get('favourites', []);
-            if (!empty($favourites)) {
+            if (! empty($favourites)) {
                 $advertisements = Advertisement::whereIn('id', $favourites)->get();
             }
         }
@@ -30,7 +29,7 @@ class FavouriteService
         } else {
             $favourites = session()->get('favourites', []);
 
-            if (!in_array($advertisement->id, $favourites)) {
+            if (! in_array($advertisement->id, $favourites)) {
                 $favourites[] = $advertisement->id;
 
                 session()->put('favourites', $favourites);

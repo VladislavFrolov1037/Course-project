@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class StoreRequest extends FormRequest
 {
     protected $errorBag = 'feedback';
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -24,7 +25,7 @@ class StoreRequest extends FormRequest
     {
         return [
             'email' => ['required', 'email', 'unique:feedback_requests', 'string'],
-            'message' => ['required', 'string', 'regex:/([\p{L}\d]+\s+){1}[\p{L}\d]+/u']
+            'message' => ['required', 'string', 'regex:/([\p{L}\d]+\s+){1}[\p{L}\d]+/u'],
         ];
     }
 

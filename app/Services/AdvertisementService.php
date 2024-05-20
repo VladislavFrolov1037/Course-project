@@ -6,20 +6,32 @@ use App\Models\Address;
 use App\Models\Advertisement;
 use App\Models\City;
 use App\Models\District;
-use App\Models\Favourite;
 use App\Models\Image;
-use App\Models\RepairType;
-use App\Models\Review;
 use App\Models\Status;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class AdvertisementService
 {
-    public function updateAdvertisement($data, $advertisement)
+    public function updateAdvertisement($data, $advertisement): void
     {
         if ($data['type_object'] === 'Дом') {
             $data['balcony'] = '';
+        }
+
+        if (isset($data['images'])) {
+            foreach ($advertisement->images as $image) {
+                $image->delete();
+            }
+
+            foreach ($data['images'] as $img) {
+                Image::create([
+                    'url' => $img->store('uploads', 'public'),
+                    'advertisement_id' => $advertisement->id,
+                ]);
+            }
+
+            unset($data['images']);
         }
 
         Address::where('id', $advertisement->address_id)->update([
@@ -28,32 +40,15 @@ class AdvertisementService
             'district_id' => $data['district_id'],
         ]);
 
-        $images = $data['images'];
-
         $data['address_id'] = $advertisement->address_id;
 
-        $data = Arr::except($data, ['address', 'house_number', 'district_id', 'images']);
+        $data = Arr::except($data, ['address', 'house_number', 'district_id']);
 
         Advertisement::find($advertisement->id)->update($data);
-
-        foreach ($advertisement->images as $image) {
-            $image->delete();
-        }
-
-        foreach ($images as $img) {
-            Image::create([
-                'url' => $img->store('uploads', 'public'),
-                'advertisement_id' => $advertisement->id,
-            ]);
-        }
     }
 
-    public function store($data)
+    public function store($data): void
     {
-        if ($data['type_object'] === 'Дом') {
-            $data['balcony'] = '';
-        }
-
         $address = Address::create([
             'address' => $data['address'],
             'house_number' => $data['house_number'],
@@ -83,9 +78,10 @@ class AdvertisementService
         }
     }
 
-    public function update($advertisement, $data)
+    public function update($advertisement, $data): void
     {
         $user = auth()->user();
+
         $data['user_id'] = $user->id;
 
         $data['balcony'] = ($data['balcony'] === 'true');
@@ -104,14 +100,14 @@ class AdvertisementService
         }
     }
 
-    public function getEnumValues($table, $column)
+    public function getEnumValues($table, $column): array
     {
         $results = DB::select("SHOW COLUMNS FROM `$table` LIKE '$column'");
         $columnType = $results[0]->Type;
 
         preg_match('/^enum\((.*)\)$/', $columnType, $matches);
 
-        $values = explode(',', str_replace("'", "", $matches[1]));
+        $values = explode(',', str_replace("'", '', $matches[1]));
 
         return $values;
     }

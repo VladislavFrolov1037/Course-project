@@ -24,7 +24,7 @@ class ReviewFactory extends Factory
             'rating' => random_int(1, 5),
             'date' => fake()->date(),
             'user_id' => fake()->randomElement($userIds),
-            'status_id' => random_int(1, 3)
+            'status_id' => random_int(1, 3),
         ];
     }
 }

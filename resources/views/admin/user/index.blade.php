@@ -3,7 +3,7 @@
     <div class="container mb-5">
         <ul class="nav nav-tabs" id="advertisementTabs" role="tablist">
             <li class="nav-item">
-                <a class="nav-link active" id="all-ads-tab" href="#" role="tab"
+                <a class="nav-link active" id="all-ads-tab" href="{{ route('admin.users.index') }}" role="tab"
                    aria-controls="all-ads" aria-selected="true">
                     <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                          class="bi bi-list mb-2 mt-1" viewBox="0 0 16 16">

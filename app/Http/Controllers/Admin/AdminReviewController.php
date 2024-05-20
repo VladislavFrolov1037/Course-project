@@ -4,21 +4,35 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Review;
+use App\Services\ReviewService;
 use App\Services\StatusService;
 use Illuminate\Http\Request;
 
 class AdminReviewController extends Controller
 {
     protected StatusService $statusService;
+    protected reviewService $reviewService;
 
-    public function __construct(StatusService $statusService)
+    public function __construct(StatusService $statusService, reviewService $reviewService)
     {
         $this->statusService = $statusService;
+        $this->reviewService = $reviewService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $reviews = Review::where('status_id', 2)->paginate(10);
+        $orderBy = $request->input('orderBy', 'default');
+
+        $reviews = $this->reviewService->sortReview($request);
+
+        if ($request->ajax()) {
+            $pagination = $reviews->appends(['orderBy' => $orderBy])->links()->toHtml();
+
+            return response()->json([
+                'reviews' => $reviews->items(),
+                'pagination' => $pagination,
+            ]);
+        }
 
         return view('admin.review.index', compact('reviews'));
     }
@@ -53,5 +67,3 @@ class AdminReviewController extends Controller
         return view('admin.review.cancelled', compact('reviews'));
     }
 }
-
-

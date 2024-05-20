@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Status;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class StatusSeeder extends Seeder
@@ -17,7 +16,7 @@ class StatusSeeder extends Seeder
             ['name' => 'Ожидание'],
             ['name' => 'Одобрено'],
             ['name' => 'Отклонено'],
-            ['name' => 'В процессе']
+            ['name' => 'В процессе'],
         ]);
     }
 }

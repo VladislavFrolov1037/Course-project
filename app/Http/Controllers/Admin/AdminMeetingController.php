@@ -11,19 +11,18 @@ use Illuminate\Http\Request;
 
 class AdminMeetingController extends Controller
 {
-
-    protected StatusService $statusService;
-
-    public function __construct(StatusService $statusService)
-    {
-        $this->statusService = $statusService;
-    }
-
     public function index()
     {
         $meetings = Meeting::where('status_id', 1)->paginate(10);
 
         return view('admin.meeting.index', compact('meetings'));
+    }
+
+    public function current()
+    {
+        $meetings = Meeting::where('status_id', 4)->paginate(10);
+
+        return view('admin.meeting.current', compact('meetings'));
     }
 
     public function changeStatus(Meeting $meeting, Request $request)
@@ -32,9 +31,17 @@ class AdminMeetingController extends Controller
 
         $reason = $request->input('reason');
 
-        $this->statusService->changeStatus($meeting, $action);
+        if ($action === 'reject') {
+            $meeting->status_id = 3;
+        } elseif ($action === 'approve') {
+            $meeting->status_id = 4;
+        } else {
+            $meeting->status_id = 2;
+        }
 
-        $meeting->status_id == 2 ? SendConfirmation::dispatch($meeting) : SendReject::dispatch($meeting, $reason);
+        $meeting->save();
+
+        $meeting->status_id == 4 ? SendConfirmation::dispatch($meeting) : SendReject::dispatch($meeting, $reason);
 
         return back();
     }

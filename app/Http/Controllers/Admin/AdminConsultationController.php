@@ -9,14 +9,6 @@ use Illuminate\Http\Request;
 
 class AdminConsultationController extends Controller
 {
-
-    protected StatusService $statusService;
-
-    public function __construct(StatusService $statusService)
-    {
-        $this->statusService = $statusService;
-    }
-
     public function index(Request $request)
     {
         $sort = $request->input('sort', 'id');
@@ -51,7 +43,15 @@ class AdminConsultationController extends Controller
     {
         $action = $request->input('action');
 
-        $this->statusService->changeStatus($consultation, $action);
+        if ($action === 'reject') {
+            $consultation->status_id = 3;
+        } elseif ($action === 'approve') {
+            $consultation->status_id = 4;
+        } else {
+            $consultation->status_id = 2;
+        }
+
+        $consultation->save();
 
         return back();
     }

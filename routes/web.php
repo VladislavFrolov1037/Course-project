@@ -19,7 +19,6 @@ use App\Http\Controllers\MeetingController;
 use App\Http\Controllers\UserAccountController;
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -82,6 +81,7 @@ Route::prefix('user')->controller(UserAccountController::class)->as('users.')->m
 
 Route::prefix('meetings')->controller(MeetingController::class)->as('meetings.')->group(function () {
     Route::post('/', 'store')->name('store');
+    Route::get('/', 'pdf')->name('pdf');
 });
 
 Route::prefix('feedback')->controller(FeedbackRequestController::class)->as('feedbacks.')->group(function () {
@@ -136,6 +136,7 @@ Route::prefix('admin')->middleware('admin')->as('admin.')->group(function () {
 
     Route::prefix('meetings')->controller(AdminMeetingController::class)->as('meetings.')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/current', 'current')->name('current');
         Route::patch('/{meeting}/status', 'changeStatus')->name('changeStatus');
     });
 });

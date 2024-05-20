@@ -14,7 +14,6 @@ class ImageFactory extends Factory
      *
      * @return array<string, mixed>
      */
-
     protected static $i = 1;
 
     public function definition(): array
@@ -34,9 +33,8 @@ class ImageFactory extends Factory
         static::$i++;
 
         return [
-            'url' => 'uploads/' . $randomImage . '.jpg',
+            'url' => 'uploads/'.$randomImage.'.jpg',
             'advertisement_id' => str(static::$i - 1),
         ];
     }
-
 }

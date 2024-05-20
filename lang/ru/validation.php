@@ -1,4 +1,5 @@
 <?php
+
 return [
 
     /*
@@ -61,7 +62,7 @@ return [
         'numeric' => 'Поле :attribute должно быть не менее :min.',
         'file' => 'Поле :attribute должно быть не менее :min Килобайт.',
         'string' => 'Поле :attribute должно быть не короче :min символов.',
-        'array' => 'Поле :attribute должно содержать не менее :min элементов.'
+        'array' => 'Поле :attribute должно содержать не менее :min элементов.',
     ],
     'not_in' => 'Выбранное значение для :attribute ошибочно.',
     'numeric' => 'Поле :attribute должно быть числом.',
@@ -79,7 +80,7 @@ return [
         'numeric' => 'Поле :attribute должно быть :size.',
         'file' => 'Поле :attribute должно быть :size Килобайт.',
         'string' => 'Поле :attribute должно быть длиной :size символов.',
-        'array' => 'Количество элементов в поле :attribute должно быть :size.'
+        'array' => 'Количество элементов в поле :attribute должно быть :size.',
     ],
     'string' => 'Поде :attribute должно быть строкой.',
     'timezone' => 'Поле :attribute должнобыть валидной временной зоной.',

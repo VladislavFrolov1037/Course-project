@@ -18,10 +18,10 @@ class Address extends Model
     {
         return Attribute::make(
             get: function ($value) {
-                return mb_strtoupper(mb_substr($value, 0, 1)) . mb_strtolower(mb_substr($value, 1));
+                return mb_strtoupper(mb_substr($value, 0, 1)).mb_strtolower(mb_substr($value, 1));
             },
             set: function ($value) {
-                return mb_strtoupper(mb_substr($value, 0, 1)) . mb_strtolower(mb_substr($value, 1));
+                return mb_strtoupper(mb_substr($value, 0, 1)).mb_strtolower(mb_substr($value, 1));
             }
         );
     }

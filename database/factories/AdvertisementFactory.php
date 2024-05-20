@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class AdvertisementFactory extends Factory
 {
     protected static $houseCount = 0;
+
     protected static $apartmentCount = 0;
 
     public function definition(): array
@@ -43,7 +44,7 @@ class AdvertisementFactory extends Factory
             'type_object' => $typeObject,
             'rental_time' => random_int(1, 2),
             'description' => fake()->text(50),
-            'status_id' => random_int(1, 3)
+            'status_id' => random_int(1, 3),
         ];
 
         if ($typeObject === 'Дом') {
@@ -59,4 +60,3 @@ class AdvertisementFactory extends Factory
         return $advertisementData;
     }
 }
-

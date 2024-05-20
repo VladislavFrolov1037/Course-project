@@ -11,7 +11,7 @@ class FeedbackRequest extends Model
 
     protected $fillable = [
         'email',
-        'message'
+        'message',
     ];
 
     public function status()

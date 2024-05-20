@@ -39,7 +39,8 @@
                             @endif
                         </strong>
                         <span>@if ($advertisement->type_object !== 'Дом')
-                                {{ $advertisement->floor }}/@endif{{ $advertisement->num_floors }}</span></li>
+                                {{ $advertisement->floor }}/
+                            @endif{{ $advertisement->num_floors }}</span></li>
                     <li><img width="12" height="12" src="{{{ asset('assets/images/price.svg') }}}"
                              alt=""><strong> Стоимость: </strong>
                         <span>{{ $advertisement->price }}р.</span>
@@ -67,8 +68,8 @@
                            href="{{ route('admin.advertisements.edit', $advertisement->id) }}">Редактировать</a>
                     </form>
                 @else
-                    @include('components.modals.rejectModal', ['id' => $advertisement->id, 'message' => 'Вы действительно хотите отклонить предложение?', 'actionUrl' => route('admin.advertisements.changeStatus', $advertisement->id)])
-                    @include('components.modals.approveModal', ['id' => $advertisement->id, 'message' => 'Вы действительно хотите одобрить предложение?', 'actionUrl' => route('admin.advertisements.changeStatus', $advertisement->id)])
+                    @include('components.modals.rejectModal', ['id' => $advertisement->id, 'message' => 'Вы действительно хотите отклонить объявление?', 'actionUrl' => route('admin.advertisements.changeStatus', $advertisement->id)])
+                    @include('components.modals.approveModal', ['id' => $advertisement->id, 'message' => 'Вы действительно хотите одобрить объявление?', 'actionUrl' => route('admin.advertisements.changeStatus', $advertisement->id)])
                     <div>
                         <button name="action" type="button" class="btn btn-danger btn-reject"
                                 style="margin-right: 10px;" data-action="reject"
@@ -89,7 +90,9 @@
                                 style="margin-right: 10px;">Удалить
                         </button>
                     @endif
-                    @include('components.modals.favouriteButton')
+                    @if (auth()->id() !== $advertisement->user_id)
+                        @include('components.modals.favouriteButton')
+                    @endif
                 </div>
             @endif
         </div>

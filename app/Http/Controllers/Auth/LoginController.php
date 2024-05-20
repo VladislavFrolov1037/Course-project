@@ -18,11 +18,11 @@ class LoginController extends Controller
     {
         $credentials = $request->validated();
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return back()
                 ->withInput()
                 ->withErrors([
-                    'email' => 'Введенные данные для входа неверные.'
+                    'email' => 'Введенные данные для входа неверные.',
                 ]);
         }
 

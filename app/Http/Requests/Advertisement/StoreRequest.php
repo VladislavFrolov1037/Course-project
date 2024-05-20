@@ -36,10 +36,9 @@ class StoreRequest extends FormRequest
             'price' => ['required', 'integer', 'min:1'],
             'type_object' => ['required', 'string'],
 
-
             'balcony' => function ($attribute, $value, $fail) {
                 $data = $this->all();
-                if ($data['type_object'] !== 'Дом' && !in_array($value, ['true', 'false'])) {
+                if ($data['type_object'] !== 'Дом' && ! in_array($value, ['true', 'false'])) {
                     $fail('Поле балкон является обязательным и должно быть либо "true", либо "false".');
                 }
             },

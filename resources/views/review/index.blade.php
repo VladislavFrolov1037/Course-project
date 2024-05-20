@@ -74,7 +74,7 @@
                     <div class="feedbacks">
                         <h1>${review.user.name}`;
                 for (let i = 1; i <= review.rating; i++) {
-                    reviewHtml += `<img src="{{ asset('images/star.png') }}" alt="">`;
+                    reviewHtml += ` <img src="{{ asset('images/star.png') }}" alt="">`;
                 }
                 reviewHtml += `</h1>
                         <div class="date mt-1">Добавлено: ${review.date}</div>

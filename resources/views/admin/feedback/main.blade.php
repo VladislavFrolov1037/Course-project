@@ -19,20 +19,35 @@
                     <td class="{{ $approve ? 'text-info' : 'text-warning' }}">{{ $feedback->status->name }}</td>
                     <td>
                         @if(!$approve)
-                            <form action="{{ route('admin.feedbacks.changeStatus', $feedback->id) }}" method="post">
-                                @csrf
-                                @method('patch')
-                                <button class="btn btn-danger" type="submit" name="action" value="reject"
-                                        style="margin-right: 10px;">Отклонить
-                                </button>
-                                <button class="btn btn-success" type="submit" name="action" value="approve">Одобрить
-                                </button>
-                            </form>
+                            @include('components.modals.rejectModal', [
+                             'id' => $feedback->id,
+                             'message' => 'Вы действительно хотите отклонить пожелание?',
+                             'actionUrl' => route('admin.feedbacks.changeStatus', $feedback->id),
+                             ])
+
+                            @include('components.modals.approveModal', [
+                                'id' => $feedback->id,
+                                'message' => 'Вы действительно хотите одобрить пожелание?',
+                                'actionUrl' => route('admin.feedbacks.changeStatus', $feedback->id),
+                            ])
+                            <button data-action="reject"
+                                    data-bs-toggle="modal" name="action" value="reject"
+                                    data-bs-target="#reject{{ $feedback->id }}"
+                                    type="button"
+                                    class="btn btn-danger consultationReject">
+                                Отклонить
+                            </button>
+                            <button data-bs-toggle="modal"
+                                    data-bs-target="#approve{{ $feedback->id }}" type="button"
+                                    class="btn btn-primary consultationApprove">
+                                Одобрить
+                            </button>
                         @else
                             @include('components.modals.deleteModal', ['id' => $feedback->id, 'bodyText' => 'Вы действительно хотите удалить идею?', 'actionUrl' => route('admin.feedbacks.destroy', $feedback->id)])
                             <button class="btn btn-danger" type="button" data-bs-toggle="modal"
                                     data-bs-target="#delete{{ $feedback->id }}">Удалить</button>
                         @endif
+
                     </td>
                 </tr>
             @endforeach

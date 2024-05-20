@@ -13,5 +13,4 @@ class RepairType extends Model
     {
         return $this->hasMany(Advertisement::class, 'repair_type_id', 'id');
     }
-
 }

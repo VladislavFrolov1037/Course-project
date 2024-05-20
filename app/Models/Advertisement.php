@@ -12,6 +12,7 @@ class Advertisement extends Model
     use HasFactory;
 
     protected $table = 'advertisements';
+
     protected $guarded = false;
 
     public function isInFavourites()

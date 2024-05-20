@@ -9,7 +9,6 @@ use App\Services\AdvertisementService;
 
 class AdvertisementController extends Controller
 {
-
     protected AdvertisementService $advertisementService;
 
     public function __construct(AdvertisementService $advertisementService)
@@ -59,7 +58,7 @@ class AdvertisementController extends Controller
             $referer = request()->header('referer');
 
             if ($referer) {
-                if (strpos($referer, (string)$advertisement->id === false)) {
+                if (strpos($referer, (string) $advertisement->id === false)) {
                     return redirect()->to($referer);
                 }
             }

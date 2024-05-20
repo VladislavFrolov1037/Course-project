@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
-
     protected ReviewService $reviewService;
 
     public function __construct(ReviewService $reviewService)
@@ -25,9 +24,10 @@ class ReviewController extends Controller
 
         if ($request->ajax()) {
             $pagination = $reviews->appends(['orderBy' => $orderBy])->links()->toHtml();
+
             return response()->json([
                 'reviews' => $reviews->items(),
-                'pagination' => $pagination
+                'pagination' => $pagination,
             ]);
         }
 
@@ -55,5 +55,3 @@ class ReviewController extends Controller
         return back();
     }
 }
-
-

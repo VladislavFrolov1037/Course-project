@@ -18,10 +18,12 @@ class Status extends Model
     {
         return $this->hasMany(Review::class);
     }
+
     public function meetings()
     {
         return $this->hasMany(Meeting::class);
     }
+
     public function feedbackRequests()
     {
         return $this->hasMany(FeedbackRequest::class);
@@ -31,5 +33,4 @@ class Status extends Model
     {
         return $this->hasMany(Consultation::class);
     }
-
 }

@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Favourite extends Model
 {
     use HasFactory;
+
     protected $table = 'favourites';
+
     protected $guarded = false;
 
     public $timestamps = false;

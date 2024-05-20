@@ -111,26 +111,31 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 offset-md-3">
-                <div class="custom-form-container" id="form">
-                    <h2 class="custom-form-title">Поделитесь идеями для улучшения нашей компании</h2>
-                    <form action="{{ route('feedbacks.store') }}" class="custom-form" method="POST">
-                        @csrf
-                        <input type="email" class="custom-input" id="email" name="email" placeholder="Ваш Email"
-                               value="{{ old('email') }}">
-                        @error('email', 'feedback')
-                        <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                        <textarea class="custom-input" id="message" name="message" rows="4" placeholder="Ваша идея"
-                        >{{ old('message') }}</textarea>
-                        @error('message', 'feedback')
-                        <p class="text-danger">{{ $message }}</p>
-                        @enderror
-                        <button type="submit" class="custom-button sendForm">Отправить</button>
-                    </form>
+                <div class="card custom-form-container">
+                    <div class="card-body">
+                        <h2 class="card-title custom-form-title">Оставьте ваш комментарий или запрос администратору</h2>
+                        <form action="{{ route('feedbacks.store') }}" class="custom-form" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <input type="email" class="form-control custom-input" id="email" name="email" placeholder="Ваш Email" value="{{ old('email') }}">
+                                @error('email', 'feedback')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control custom-input" id="message" name="message" rows="4" placeholder="Ваш комментарий, идея или запрос">{{ old('message') }}</textarea>
+                                @error('message', 'feedback')
+                                <small class="form-text text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-primary custom-button sendForm">Отправить</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="consultationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

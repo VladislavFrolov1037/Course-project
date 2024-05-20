@@ -12,7 +12,7 @@ class Consultation extends Model
     protected $fillable = [
         'name',
         'email',
-        'phone'
+        'phone',
     ];
 
     public $timestamps = false;

@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 class AdminAdvertisementController extends Controller
 {
     protected AdvertisementService $advertisementService;
+
     protected StatusService $statusService;
 
     public function __construct(AdvertisementService $advertisementService, StatusService $statusService)

@@ -21,14 +21,12 @@ class StoreRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-
-
     public function rules(): array
     {
         $rules = [
             'name' => ['required', 'string', 'min:4'],
             'consultation_email' => ['required', 'email'],
-            'phone' => ['required', 'string', 'regex:/^(\+7|8)\d{10}$/']
+            'phone' => ['required', 'string', 'regex:/^(\+7|8)\d{10}$/'],
         ];
 
         if (isset($rules['consultation_email'])) {
@@ -43,8 +41,7 @@ class StoreRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            'email' => $this->input('consultation_email')
+            'email' => $this->input('consultation_email'),
         ]);
     }
-
 }

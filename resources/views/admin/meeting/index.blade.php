@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+    @include('admin.meeting.buttons', ['id' => 1])
     <div class="container">
         <div class="row justify-content-center">
             <table class="table">
@@ -13,6 +14,7 @@
                     <th scope="col">Время</th>
                     <th scope="col">Id объявления</th>
                     <th scope="col">Статус</th>
+                    <th scope="col">Действие</th>
                 </tr>
                 </thead>
                 <tbody>

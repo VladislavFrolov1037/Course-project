@@ -17,6 +17,7 @@ class AddressFactory extends Factory
     public function definition(): array
     {
         $streets = ['Ленина', 'Ворошилова', 'Карла-Маркса', 'Гагарина', 'Калмыкова', 'Доменщиков', 'Электросети', 'Галиуллина', 'Завенягина'];
+
         return [
             'address' => $streets[random_int(0, 8)],
             'house_number' => random_int(1, 350),

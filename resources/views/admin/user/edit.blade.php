@@ -3,6 +3,7 @@
     <div class="infoPage">
         <div class="info">
             <h1>Обновить данные о пользователе</h1>
+            <a href="{{ route('admin.users.index') }}" class="btn btn-primary mt-2">Назад</a>
         </div>
     </div>
 
@@ -24,6 +25,7 @@
                         @error('image')
                         <p class="text-danger mt-3">{{ $message }}</p>
                         @enderror
+
                     </div>
                 </div>
                 <div class="col-md-4">

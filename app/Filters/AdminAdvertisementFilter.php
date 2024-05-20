@@ -49,5 +49,3 @@ class AdminAdvertisementFilter extends AdvertisementFilter
         return $this->builder->where('user_id', $id);
     }
 }
-
-

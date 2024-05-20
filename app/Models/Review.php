@@ -17,7 +17,7 @@ class Review extends Model
     protected function comment(): Attribute
     {
         return Attribute::make(
-            set: fn($value) => mb_strtoupper(mb_substr($value, 0, 1)) . mb_strtolower(mb_substr($value, 1))
+            set: fn ($value) => mb_strtoupper(mb_substr($value, 0, 1)).mb_strtolower(mb_substr($value, 1))
         );
     }
 

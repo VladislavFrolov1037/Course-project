@@ -15,6 +15,7 @@ class SendReject implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $meeting;
+
     protected $reason;
 
     /**

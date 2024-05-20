@@ -2,13 +2,10 @@
 
 namespace App\Filters;
 
-use App\Models\Address;
 use App\Models\City;
-use App\Models\District;
 
 class AdvertisementFilter extends QueryFilter
 {
-
     public function type_object($typeObject)
     {
         return $this->builder->where('type_object', $typeObject);
@@ -61,7 +58,6 @@ class AdvertisementFilter extends QueryFilter
 
     }
 
-
     public function floor($floor = null)
     {
         if (empty($floor)) {
@@ -96,12 +92,12 @@ class AdvertisementFilter extends QueryFilter
 
     public function balcony($balcony)
     {
-        if ($balcony === 'Любой')
+        if ($balcony === 'Любой') {
             return $this->builder;
+        }
 
         $balcony = ($balcony === 'true');
+
         return $this->builder->where('balcony', $balcony);
     }
-
 }
-

@@ -8,13 +8,13 @@ use Illuminate\Support\Facades\Storage;
 
 class UserAccountController extends Controller
 {
-
     protected $user;
 
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
             $this->user = auth()->user();
+
             return $next($request);
         });
     }

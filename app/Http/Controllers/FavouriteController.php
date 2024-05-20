@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
-use App\Services\AdvertisementService;
 use App\Services\FavouriteService;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
 
 class FavouriteController extends Controller
 {
-
     protected FavouriteService $favouriteService;
 
     public function __construct(FavouriteService $favouriteService)

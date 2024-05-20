@@ -18,8 +18,8 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-
     public $timestamps = false;
+
     protected $fillable = [
         'name',
         'email',
@@ -53,7 +53,7 @@ class User extends Authenticatable
     {
         return Attribute::make(
             set: function ($value) {
-                return mb_strtoupper(mb_substr($value, 0, 1)) . mb_strtolower(mb_substr($value, 1));
+                return mb_strtoupper(mb_substr($value, 0, 1)).mb_strtolower(mb_substr($value, 1));
             },
         );
     }

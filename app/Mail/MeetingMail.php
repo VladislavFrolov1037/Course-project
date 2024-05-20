@@ -11,12 +11,13 @@ class MeetingMail extends Mailable
     use Queueable, SerializesModels;
 
     public $meeting;
+
     public $reason;
 
     /**
      * Create a new message instance.
      *
-     * @param array $meeting
+     * @param  array  $meeting
      * @return void
      */
     public function __construct($meeting, $reason = null)
