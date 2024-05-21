@@ -117,13 +117,15 @@
                         <form action="{{ route('feedbacks.store') }}" class="custom-form" method="POST">
                             @csrf
                             <div class="form-group">
-                                <input type="email" class="form-control custom-input" id="email" name="email" placeholder="Ваш Email" value="{{ old('email') }}">
+                                <input type="email" class="form-control custom-input" id="email" name="email"
+                                       placeholder="Ваш Email" value="{{ old('email') }}">
                                 @error('email', 'feedback')
                                 <small class="form-text text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control custom-input" id="message" name="message" rows="4" placeholder="Ваш комментарий, идея или запрос">{{ old('message') }}</textarea>
+                                <textarea class="form-control custom-input" id="message" name="message" rows="4"
+                                          placeholder="Ваш комментарий, идея или запрос">{{ old('message') }}</textarea>
                                 @error('message', 'feedback')
                                 <small class="form-text text-danger">{{ $message }}</small>
                                 @enderror

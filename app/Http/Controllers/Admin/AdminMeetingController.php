@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Jobs\SendConfirmation;
 use App\Jobs\SendReject;
 use App\Models\Meeting;
-use App\Services\StatusService;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 
 class AdminMeetingController extends Controller
@@ -44,5 +45,16 @@ class AdminMeetingController extends Controller
         $meeting->status_id == 4 ? SendConfirmation::dispatch($meeting) : SendReject::dispatch($meeting, $reason);
 
         return back();
+    }
+
+    public function pdf(Meeting $meeting)
+    {
+        return view('pdfs.download', compact('meeting'));
+    }
+
+    public function downloadPdf(Meeting $meeting)
+    {
+        return Pdf::setOption(['defaultFont' => 'Arial'])->loadView('pdfs.document', compact('meeting'))
+            ->download('meeting.pdf');
     }
 }

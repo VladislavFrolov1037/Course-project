@@ -81,7 +81,6 @@ Route::prefix('user')->controller(UserAccountController::class)->as('users.')->m
 
 Route::prefix('meetings')->controller(MeetingController::class)->as('meetings.')->group(function () {
     Route::post('/', 'store')->name('store');
-    Route::get('/', 'pdf')->name('pdf');
 });
 
 Route::prefix('feedback')->controller(FeedbackRequestController::class)->as('feedbacks.')->group(function () {
@@ -140,3 +139,5 @@ Route::prefix('admin')->middleware('admin')->as('admin.')->group(function () {
         Route::patch('/{meeting}/status', 'changeStatus')->name('changeStatus');
     });
 });
+Route::get('/pdf/{meeting}', [AdminMeetingController::class, 'pdf'])->name('pdf');
+Route::get('/pdf/{meeting}/download', [AdminMeetingController::class, 'downloadPdf'])->name('meeting.download');

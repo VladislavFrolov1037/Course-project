@@ -18,11 +18,4 @@ class MeetingController extends Controller
 
         return redirect()->back()->with('success_message', 'Форма успешно отправлена');
     }
-
-    public function pdf()
-    {
-        return Pdf::view('pdfs.document', ['meeting' => $meeting])
-            ->format('a4')
-            ->save('meeting.pdf');
-    }
 }
