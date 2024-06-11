@@ -14,7 +14,7 @@ class SendRegister implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $user;
+    public $user;
 
     /**
      * Create a new job instance.

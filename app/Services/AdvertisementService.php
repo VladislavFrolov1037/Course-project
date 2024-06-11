@@ -61,7 +61,10 @@ class AdvertisementService
 
         $data = Arr::except($data, ['address', 'house_number', 'district_id', 'images']);
 
-        $data['balcony'] = ($data['balcony'] === 'true');
+        if (isset($data['balcony'])) {
+            $data['balcony'] = ($data['balcony'] === 'true');
+        }
+
         $data['user_id'] = auth()->user()->id;
 
         if ($data['type_object'] === 'Дом') {

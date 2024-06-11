@@ -15,3 +15,4 @@ class AdvertisementSeeder extends Seeder
         Advertisement::factory(200)->create();
     }
 }
+

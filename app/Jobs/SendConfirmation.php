@@ -14,7 +14,7 @@ class SendConfirmation implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $meeting;
+    public $meeting;
 
     /**
      * Create a new job instance.

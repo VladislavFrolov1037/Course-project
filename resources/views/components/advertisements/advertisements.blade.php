@@ -39,8 +39,7 @@
                             @endif
                         </strong>
                         <span>@if ($advertisement->type_object !== 'Дом')
-                                {{ $advertisement->floor }}/
-                            @endif{{ $advertisement->num_floors }}</span></li>
+                                {{ $advertisement->floor }}/@endif{{ $advertisement->num_floors }}</span></li>
                     <li><img width="12" height="12" src="{{{ asset('assets/images/price.svg') }}}"
                              alt=""><strong> Стоимость: </strong>
                         <span>{{ $advertisement->price }}р.</span>

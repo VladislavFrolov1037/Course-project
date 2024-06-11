@@ -14,9 +14,9 @@ class SendReject implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $meeting;
+    public $meeting;
 
-    protected $reason;
+    public $reason;
 
     /**
      * Create a new job instance.

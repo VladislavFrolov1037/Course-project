@@ -49,8 +49,7 @@
                             @endif
                         </strong>
                         <span>@if ($advertisement->type_object !== 'Дом')
-                                {{ $advertisement->floor }}/
-                            @endif{{ $advertisement->num_floors }}</span>
+                                {{ $advertisement->floor }}/@endif{{ $advertisement->num_floors }}</span>
                     </li>
                     <li class="list-group-item"><img width="12" height="12"
                                                      src="{{{ asset('assets/images/price.svg') }}}"
